@@ -1,8 +1,10 @@
+from faker import Faker
 import flask
 import pytest
+from random import randint, choice as rc
 
 from app import app
-from models import db, User
+from models import db, User, Recipe
 
 app.secret_key = b'a\xdb\xd2\x13\x93\xc1\xe9\x97\xef2\xe3\x004U\xd1Z'
 
@@ -183,66 +185,199 @@ class TestLogin:
             with client.session_transaction() as session:
                 assert not session.get('user_id')
 
-    class TestLogout:
-        '''Logout resource in app.py'''
+class TestLogout:
+    '''Logout resource in app.py'''
 
-    # def test_logs_out(self):
-    #     '''logs users out at /logout.'''
-    #     with app.app_context():
+    def test_logs_out(self):
+        '''logs users out at /logout.'''
+        with app.app_context():
             
-    #         User.query.delete()
-    #         db.session.commit()
+            User.query.delete()
+            db.session.commit()
         
-    #     with app.test_client() as client:
+        with app.test_client() as client:
 
-    #         client.post('/signup', json={
-    #             'username': 'ash',
-    #             'password': 'pikachu',
-    #         })
+            client.post('/signup', json={
+                'username': 'ashketchum',
+                'password': 'pikachu',
+            })
 
-    #         client.post('/login', json={
-    #             'username': 'ash',
-    #             'password': 'pikachu',
-    #         })
+            client.post('/login', json={
+                'username': 'ashketchum',
+                'password': 'pikachu',
+            })
 
-    #         # check if logged in
-    #         with client.session_transaction() as session:
-    #             assert(session['user_id'])
-
-    #         # check if logged out
-    #         response = client.delete('/logout')
-    #         with client.session_transaction() as session:
-    #             assert(not session['user_id'])
+            # check if logged out
+            client.delete('/logout')
+            with client.session_transaction() as session:
+                assert not session['user_id']
             
+    def test_401s_if_no_session(self):
+        '''returns 401 if a user attempts to logout without a session at /logout.'''
+        with app.test_client() as client:
 
-
-    # def test_checks_for_session(self):
-    #     '''checks if a user is authenticated and returns the user as JSON at /check_session.'''
-
-    #     with app.app_context():
+            with client.session_transaction() as session:
+                session['user_id'] = None
             
-    #         User.query.delete()
-    #         db.session.commit()
+            response = client.delete('/logout')
+
+            assert response.status_code == 401
+
+class TestRecipeIndex:
+    '''RecipeIndex resource in app.py'''
+
+    def test_lists_recipes_with_200(self):
+        '''returns a list of recipes associated with the logged in user and a 200 status code.'''
+
+        with app.app_context():
+            
+            Recipe.query.delete()
+            User.query.delete()
+            db.session.commit()
+
+            fake = Faker()
+
+            user = User(
+                username="Slagathor",
+                bio=fake.paragraph(nb_sentences=3),
+                image_url=fake.url(),
+            )
+
+            user.password_hash = user.username + 'password'
+
+            db.session.add(user)
+
+            recipes = []
+            for i in range(15):
+                instructions = fake.paragraph(nb_sentences=8)
+                
+                recipe = Recipe(
+                    title=fake.sentence(),
+                    instructions=instructions,
+                    minutes_to_complete=randint(15,90),
+                )
+
+                recipe.user = user
+
+                recipes.append(recipe)
+
+            db.session.add_all(recipes)
+
+            db.session.commit()
+
+        # start actual test here
+        with app.test_client() as client:
+
+            with client.session_transaction() as session:
+                
+                session['user_id'] = User.query.filter(User.username == "Slagathor").first().id
+
+            response = client.get('/recipes')
+            response_json = response.get_json()
+
+            assert response.status_code == 200
+            for i in range(15):
+                assert response_json[i]['title']
+                assert response_json[i]['instructions']
+                assert response_json[i]['minutes_to_complete']
+
+    def test_get_route_returns_401_when_not_logged_in(self):
         
-    #     with app.test_client() as client:
-
-    #         client.post('/signup', json={
-    #             'username': 'ash',
-    #             'password': 'pikachu',
-    #         })
-
-    #         client.post('/login', json={
-    #             'username': 'ash',
-    #             'password': 'pikachu',
-    #         })
-
-    #         response = client.get('/check_session')
+        with app.app_context():
             
-    #         assert(response.get_json()['username'] == 'ash')
+            Recipe.query.delete()
+            User.query.delete()
+            db.session.commit()
 
-    #         client.delete('/logout')
+        # start actual test here
+        with app.test_client() as client:
+
+            with client.session_transaction() as session:
+                
+                session['user_id'] = None
+
+            response = client.get('/recipes')
             
-    #         response = client.get('/check_session')
+            assert response.status_code == 401
+
+    def test_creates_recipes_with_201(self):
+        '''returns a list of recipes associated with the logged in user and a 200 status code.'''
+
+        with app.app_context():
             
-    #         assert(response.status_code == 204)
-    #         assert(not response.data)
+            Recipe.query.delete()
+            User.query.delete()
+            db.session.commit()
+
+            fake = Faker()
+
+            user = User(
+                username="Slagathor",
+                bio=fake.paragraph(nb_sentences=3),
+                image_url=fake.url(),
+            )
+
+            db.session.add(user)
+            db.session.commit()
+
+        # start actual test here
+        with app.test_client() as client:
+
+            with client.session_transaction() as session:
+                
+                session['user_id'] = User.query.filter(User.username == "Slagathor").first().id
+
+            fake = Faker()
+
+            response = client.post('/recipes', json={
+                'title': fake.sentence(),
+                'instructions': fake.paragraph(nb_sentences=8),
+                'minutes_to_complete': randint(15,90)
+            })
+
+            assert response.status_code == 201
+
+            response_json = response.get_json()
+            
+            with client.session_transaction() as session:
+                
+                new_recipe = Recipe.query.filter(Recipe.user_id == session['user_id']).first()
+
+            assert response_json['title'] == new_recipe.title
+            assert response_json['instructions'] == new_recipe.instructions
+            assert response_json['minutes_to_complete'] == new_recipe.minutes_to_complete
+
+    def test_returns_422_for_invalid_recipes(self):
+        with app.app_context():
+            
+            Recipe.query.delete()
+            User.query.delete()
+            db.session.commit()
+
+            fake = Faker()
+
+            user = User(
+                username="Slagathor",
+                bio=fake.paragraph(nb_sentences=3),
+                image_url=fake.url(),
+            )
+
+            db.session.add(user)
+            db.session.commit()
+
+        # start actual test here
+        with app.test_client() as client:
+
+            with client.session_transaction() as session:
+                
+                session['user_id'] = User.query.filter(User.username == "Slagathor").first().id
+
+            fake = Faker()
+
+            response = client.post('/recipes', json={
+                'title': fake.sentence(),
+                'instructions': 'figure it out yourself!',
+                'minutes_to_complete': randint(15,90)
+            })
+
+            assert response.status_code == 422

@@ -206,7 +206,7 @@ Handle recipe viewing by implementing a `GET /recipes` route. It should:
   session object):
   - Return a JSON response with an array of all recipes with their title,
     instructions, and minutes to complete data along with a nested user object;
-    and an HTTP status code of 201 (Created).
+    and an HTTP status code of 200 (Success).
 - If the user is **not** logged in when they make the request:
   - Return a JSON response with an error message, and a status of 401
     (Unauthorized).

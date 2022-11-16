@@ -108,7 +108,7 @@ class RecipeIndex(Resource):
 
             user = User.query.filter(User.id == session['user_id']).first()
 
-            return [recipe.to_dict() for recipe in user.recipes], 201
+            return [recipe.to_dict() for recipe in user.recipes], 200
         
         return {'error': '401 Unauthorized'}, 401
         
