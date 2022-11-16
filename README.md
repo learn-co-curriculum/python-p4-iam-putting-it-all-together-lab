@@ -156,15 +156,16 @@ back into an existing account.
 
 Handle login by implementing a `POST /login` route. It should:
 
-- Be handled in the `SessionsController` with a `create` action
-- In the `create` action, if the user's username and password are authenticated:
-  - Save the user's ID in the session hash
-  - Return a JSON response with the user's ID, username, image URL, and bio
+- Be handled in a `Login` resource with a `post()` method.
+- In the `post()` method, if the user's username and password are authenticated:
+  - Save the user's ID in the session object.
+  - Return a JSON response with the user's ID, username, image URL, and bio.
 - If the user's username and password are not authenticated:
   - Return a JSON response with an error message, and a status of 401
-    (Unauthorized)
+    (Unauthorized).
 
-Make sure this route works as intended by running `learn test` before moving
+Make sure this route works as intended by running
+`pytest testing/app_testing/app_test::TestLogin` before moving
 forward. You should also be able to test this in the React application by
 logging in via the login form.
 
