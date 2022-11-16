@@ -175,20 +175,20 @@ Users can log into our app! 🎉 Now, let's give them a way to log out.
 
 Handle logout by implementing a `DELETE /logout` route. It should:
 
-- Be handled in the `SessionsController` with a `destroy` action
-- In the `destroy` action, if the user is logged in (if their `user_id` is in
-  the session hash):
-  - Remove the user's ID from the session hash
-  - Return an empty response with an HTTP status code of 204 (No Content)
+- Be handled in a `Logout` resource with a `delete()` method.
+- In the `delete()` method, if the user is logged in (if their `user_id` is in
+  the session object):
+  - Remove the user's ID from the session object.
+  - Return an empty response with an HTTP status code of 204 (No Content).
 - If the user is **not** logged in when they make the request:
   - Return a JSON response with an error message, and a status of 401
-    (Unauthorized)
+    (Unauthorized).
 
 Make sure the login and logout features work as intended before moving forward.
-You can test the `SessionsController` requests with RSpec:
+You can test the `Logout` requests with RSpec:
 
 ```console
-$ rspec spec/requests/sessions_spec.rb
+$ pytest testing/app_testing/app_test::TestLogout
 ```
 
 You should also be able to test this in the React application by logging in to
