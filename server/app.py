@@ -47,6 +47,8 @@ class Signup(Resource):
 
             session['user_id'] = user.id
 
+            print(user.to_dict())
+
             return user.to_dict(), 201
 
         except IntegrityError:
@@ -78,10 +80,11 @@ class Login(Resource):
 
         user = User.query.filter(User.username == username).first()
 
-        if user.authenticate(password):
+        if user:
+            if user.authenticate(password):
 
-            session['user_id'] = user.id
-            return user.to_dict(), 200
+                session['user_id'] = user.id
+                return user.to_dict(), 200
 
         return {'error': '401 Unauthorized'}, 401
 
