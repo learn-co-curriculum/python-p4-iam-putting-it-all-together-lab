@@ -82,7 +82,7 @@ Next, create a `Recipe` model with the following attributes:
 
 - a recipe **belongs to** a user.
 - `title` that is a `String` type.
-- `instructions` that is a `Text` type.
+- `instructions` that is a `String` type.
 - `minutes_to_complete` that is an `Integer` type.
 
 Add validations for the `Recipe` model:
@@ -217,7 +217,7 @@ Now that users can log in, let's allow them to create new recipes!
 
 Handle recipe creation by implementing a `POST /recipes` route. It should:
 
-- Be handled in the `Recicpe` resource with a `post()` method.
+- Be handled in the `Recipe` resource with a `post()` method.
 - In the `post()` method, if the user is logged in (if their `user_id` is in the
   session object):
   - Save a new recipe to the database if it is valid. The recipe should **belong

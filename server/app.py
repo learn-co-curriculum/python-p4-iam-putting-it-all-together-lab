@@ -97,11 +97,53 @@ class Logout(Resource):
         
         return {'error': '401 Unauthorized'}, 401
 
+class Recipe(Resource):
+
+    def get(self):
+
+        if session.get('user_id'):
+
+            user = User.query.filter(User.id == session['user_id']).first()
+
+            return user.recipes[0].to_dict(), 201
+        
+        return {'error': '401 Unauthorized'}, 401
+        
+    def post(self):
+
+        if session.get('user_id'):
+
+            request_json = request.get_json()
+
+            title = request_json['title']
+            instructions = request_json['instructions']
+            minutes_to_complete = request_json['minutes_to_complete']
+
+            try:
+
+                recipe = Recipe(
+                    title=title,
+                    instructions=instructions,
+                    minutes_to_complete=minutes_to_complete,
+                )
+
+                db.session.add(recipe)
+                db.session.commit()
+
+                return recipe.to_dict(), 201
+
+            except IntegrityError:
+
+                return {'error': '422 Unprocessable Entity'}, 422
+
+        return {'error': '401 Unauthorized'}, 401
+
 api.add_resource(ClearSession, '/clear', endpoint='clear')
 api.add_resource(Signup, '/signup', endpoint='signup')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(Logout, '/logout', endpoint='logout')
+api.add_resource(Recipe, '/recipes', endpoint='recipes')
 
 
 if __name__ == '__main__':

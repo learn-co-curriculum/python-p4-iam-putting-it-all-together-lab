@@ -6,6 +6,8 @@ from config import db, bcrypt
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
+    serialize_rules = ('-recipes.user',)
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)
@@ -39,7 +41,7 @@ class Recipe(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
-    instructions = db.Column(db.Text, nullable=False)
+    instructions = db.Column(db.String, nullable=False)
     minutes_to_complete = db.Column(db.Integer)
 
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
