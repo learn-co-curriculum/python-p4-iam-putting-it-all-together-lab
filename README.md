@@ -132,7 +132,7 @@ Handle auto-login by implementing a `GET /check_session` route. It should:
 - In the `get()` method, if the user is logged in (if their `user_id` is in the
   session object):
   - Return a JSON response with the user's ID, username, image URL, and bio; and
-    an HTTP status code of 201 (Created).
+    an HTTP status code of 200 (Success).
 - If the user is **not** logged in when they make the request:
   - Return a JSON response with an error message, and a status of 401
     (Unauthorized).
