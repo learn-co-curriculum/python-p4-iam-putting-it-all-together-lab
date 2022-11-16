@@ -37,7 +37,7 @@ when you're building your next project with _auth_. Let's get started!
 ## Setup
 
 As with other labs in this section, there is some starter code in place for a
-Rails API backend and a React frontend. To get set up, run:
+Flask API backend and a React frontend. To get set up, run:
 
 ```console
 $ pipenv install && pipenv shell
@@ -201,15 +201,15 @@ Users should only be able to view recipes on our site after logging in.
 
 Handle recipe viewing by implementing a `GET /recipes` route. It should:
 
-- Be handled in the `RecipesController` with a `index` action
-- In the `index` action, if the user is logged in (if their `user_id` is in the
-  session hash):
+- Be handled in a `Recipe` resource with a `get()` method
+- In the `get()` method, if the user is logged in (if their `user_id` is in the
+  session object):
   - Return a JSON response with an array of all recipes with their title,
     instructions, and minutes to complete data along with a nested user object;
-    and an HTTP status code of 201 (Created)
+    and an HTTP status code of 201 (Created).
 - If the user is **not** logged in when they make the request:
   - Return a JSON response with an error message, and a status of 401
-    (Unauthorized)
+    (Unauthorized).
 
 ### Recipe Creation Feature
 
@@ -217,24 +217,24 @@ Now that users can log in, let's allow them to create new recipes!
 
 Handle recipe creation by implementing a `POST /recipes` route. It should:
 
-- Be handled in the `RecipesController` with a `create` action
-- In the `create` action, if the user is logged in (if their `user_id` is in the
-  session hash):
+- Be handled in the `Recicpe` resource with a `post()` method.
+- In the `post()` method, if the user is logged in (if their `user_id` is in the
+  session object):
   - Save a new recipe to the database if it is valid. The recipe should **belong
     to** the logged in user, and should have title, instructions, and minutes to
-    complete data provided from the params hash
+    complete data provided from the request JSON.
   - Return a JSON response with the title, instructions, and minutes to complete
     data along with a nested user object; and an HTTP status code of 201
-    (Created)
+    (Created).
 - If the user is **not** logged in when they make the request:
   - Return a JSON response with an error message, and a status of 401
-    (Unauthorized)
+    (Unauthorized).
 - If the recipe is **not valid**:
   - Return a JSON response with the error messages, and an HTTP status code of
-    422 (Unprocessable Entity)
+    422 (Unprocessable Entity).
 
-After finishing the `RecipeController` features, you're done! Make sure to check
-your work. You should be able to run the full test suite now with `learn test`.
+After finishing the `Recipe` resource, you're done! Make sure to check
+your work. You should be able to run the full test suite now with `pytest`.
 
 You should also be able to test this in the React application by creating a new
 recipe with the recipe form, and viewing a list of recipes.
@@ -243,6 +243,8 @@ recipe with the recipe form, and viewing a list of recipes.
 
 ## Resources
 
+- [API - Flask: `class flask.session`](https://flask.palletsprojects.com/en/2.2.x/api/#flask.session)
+- [User's Guide - Flask RESTful](https://flask-restful.readthedocs.io/en/latest/)
 - [Flask-Bcrypt][bcrypt]
 
 [bcrypt]: https://flask-bcrypt.readthedocs.io/en/1.0.1/
