@@ -96,7 +96,7 @@ Ensure that the tests for the models are passing before moving forward. To run
 the tests for _only_ the model files, run:
 
 ```console
-$ pytest models_test.py
+$ pytest testing/models_testing/
 ```
 
 ### Sign Up Feature
@@ -141,7 +141,7 @@ Make sure the signup and auto-login features work as intended before moving
 forward. You can test the `CheckSession` requests with pytest:
 
 ```console
-$ pytest testing/requests/users_spec.rb
+$ pytest testing/app_testing/app_test.py::TestCheckSession
 ```
 
 You should also be able to test this in the React application by signing up via
