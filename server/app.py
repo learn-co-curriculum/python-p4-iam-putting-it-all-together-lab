@@ -22,10 +22,10 @@ class Signup(Resource):
 
         request_json = request.get_json()
 
-        username = request_json['username']
-        password = request_json['password']
-        image_url = request_json['image_url']
-        bio = request_json['bio']
+        username = request_json.get('username')
+        password = request_json.get('password')
+        image_url = request_json.get('image_url')
+        bio = request_json.get('bio')
 
         user = User(
             username=username,
@@ -73,8 +73,8 @@ class Login(Resource):
 
         request_json = request.get_json()
 
-        username = request_json['username']
-        password = request_json['password']
+        username = request_json.get('username')
+        password = request_json.get('password')
 
         user = User.query.filter(User.username == username).first()
 

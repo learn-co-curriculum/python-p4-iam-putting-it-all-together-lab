@@ -6,30 +6,73 @@ from models import db, User
 
 app.secret_key = b'a\xdb\xd2\x13\x93\xc1\xe9\x97\xef2\xe3\x004U\xd1Z'
 
-class TestApp:
-    '''Flask API in app.py'''
+class TestSignup:
+    '''Signup resource in app.py'''
 
-    def test_passes(self):
-        '''passes.'''
-        assert(True)
-
-    # def test_creates_users_at_signup(self):
-    #     '''creates user records with usernames and passwords at /signup.'''
+    def test_creates_users_at_signup(self):
+        '''creates user records with usernames and passwords at /signup.'''
         
-    #     with app.app_context():
+        with app.app_context():
             
-    #         User.query.delete()
-    #         db.session.commit()
+            User.query.delete()
+            db.session.commit()
         
-    #     with app.test_client() as client:
+        with app.test_client() as client:
             
-    #         response = client.post('/signup', json={
-    #             'username': 'ash',
-    #             'password': 'pikachu',
-    #         })
+            response = client.post('/signup', json={
+                'username': 'ashketchum',
+                'password': 'pikachu',
+                'bio': '''I wanna be the very best
+                        Like no one ever was
+                        To catch them is my real test
+                        To train them is my cause
+                        I will travel across the land
+                        Searching far and wide
+                        Teach Pokémon to understand
+                        The power that's inside''',
+                'image_url': 'https://cdn.vox-cdn.com/thumbor/I3GEucLDPT6sRdISXmY_Yh8IzDw=/0x0:1920x1080/1820x1024/filters:focal(960x540:961x541)/cdn.vox-cdn.com/uploads/chorus_asset/file/24185682/Ash_Ketchum_World_Champion_Screenshot_4.jpg',
+            })
 
-    #         assert(response.json['username'] == 'ash')
-    #         assert(User.query.filter(User.username == 'ash').first())
+            assert(response.status_code == 201)
+
+            new_user = User.query.filter(User.username == 'ashketchum').first()
+
+            assert(new_user)
+            assert(new_user.authenticate('pikachu'))
+            assert(new_user.image_url == 'https://cdn.vox-cdn.com/thumbor/I3GEucLDPT6sRdISXmY_Yh8IzDw=/0x0:1920x1080/1820x1024/filters:focal(960x540:961x541)/cdn.vox-cdn.com/uploads/chorus_asset/file/24185682/Ash_Ketchum_World_Champion_Screenshot_4.jpg')
+            assert(new_user.bio == '''I wanna be the very best
+                        Like no one ever was
+                        To catch them is my real test
+                        To train them is my cause
+                        I will travel across the land
+                        Searching far and wide
+                        Teach Pokémon to understand
+                        The power that's inside''')
+
+    def test_422s_invalid_users_at_signup(self):
+        '''creates user records with usernames and passwords at /signup.'''
+        
+        with app.app_context():
+            
+            User.query.delete()
+            db.session.commit()
+        
+        with app.test_client() as client:
+            
+            response = client.post('/signup', json={
+                'password': 'pikachu',
+                'bio': '''I wanna be the very best
+                        Like no one ever was
+                        To catch them is my real test
+                        To train them is my cause
+                        I will travel across the land
+                        Searching far and wide
+                        Teach Pokémon to understand
+                        The power that's inside''',
+                'image_url': 'https://cdn.vox-cdn.com/thumbor/I3GEucLDPT6sRdISXmY_Yh8IzDw=/0x0:1920x1080/1820x1024/filters:focal(960x540:961x541)/cdn.vox-cdn.com/uploads/chorus_asset/file/24185682/Ash_Ketchum_World_Champion_Screenshot_4.jpg',
+            })
+
+            assert(response.status_code == 422)
 
     # def test_logs_in(self):
     #     '''logs users in with a username and password at /login.'''
