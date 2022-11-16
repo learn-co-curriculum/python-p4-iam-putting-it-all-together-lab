@@ -52,5 +52,5 @@ jspm_packages
 
 *.db
 */*.db
-app/migrations
-app/instance
+migrations
+instance

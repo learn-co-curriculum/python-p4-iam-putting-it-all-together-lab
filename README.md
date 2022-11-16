@@ -201,7 +201,7 @@ Users should only be able to view recipes on our site after logging in.
 
 Handle recipe viewing by implementing a `GET /recipes` route. It should:
 
-- Be handled in a `Recipe` resource with a `get()` method
+- Be handled in a `RecipeIndex` resource with a `get()` method
 - In the `get()` method, if the user is logged in (if their `user_id` is in the
   session object):
   - Return a JSON response with an array of all recipes with their title,
@@ -217,7 +217,7 @@ Now that users can log in, let's allow them to create new recipes!
 
 Handle recipe creation by implementing a `POST /recipes` route. It should:
 
-- Be handled in the `Recipe` resource with a `post()` method.
+- Be handled in the `RecipeIndex` resource with a `post()` method.
 - In the `post()` method, if the user is logged in (if their `user_id` is in the
   session object):
   - Save a new recipe to the database if it is valid. The recipe should **belong
@@ -233,7 +233,7 @@ Handle recipe creation by implementing a `POST /recipes` route. It should:
   - Return a JSON response with the error messages, and an HTTP status code of
     422 (Unprocessable Entity).
 
-After finishing the `Recipe` resource, you're done! Make sure to check
+After finishing the `RecipeIndex` resource, you're done! Make sure to check
 your work. You should be able to run the full test suite now with `pytest`.
 
 You should also be able to test this in the React application by creating a new

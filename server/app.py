@@ -97,7 +97,7 @@ class Logout(Resource):
         
         return {'error': '401 Unauthorized'}, 401
 
-class Recipe(Resource):
+class RecipeIndex(Resource):
 
     def get(self):
 
@@ -105,7 +105,7 @@ class Recipe(Resource):
 
             user = User.query.filter(User.id == session['user_id']).first()
 
-            return user.recipes[0].to_dict(), 201
+            return [recipe.to_dict() for recipe in user.recipes], 201
         
         return {'error': '401 Unauthorized'}, 401
         
@@ -125,6 +125,7 @@ class Recipe(Resource):
                     title=title,
                     instructions=instructions,
                     minutes_to_complete=minutes_to_complete,
+                    user_id=session['user_id'],
                 )
 
                 db.session.add(recipe)
@@ -143,7 +144,7 @@ api.add_resource(Signup, '/signup', endpoint='signup')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(Logout, '/logout', endpoint='logout')
-api.add_resource(Recipe, '/recipes', endpoint='recipes')
+api.add_resource(RecipeIndex, '/recipes', endpoint='recipes')
 
 
 if __name__ == '__main__':
