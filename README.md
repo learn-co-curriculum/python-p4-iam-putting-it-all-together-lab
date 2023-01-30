@@ -165,7 +165,7 @@ Handle login by implementing a `POST /login` route. It should:
     (Unauthorized).
 
 Make sure this route works as intended by running
-`pytest testing/app_testing/app_test::TestLogin` before moving
+`pytest testing/app_testing/app_test.py::TestLogin` before moving
 forward. You should also be able to test this in the React application by
 logging in via the login form.
 
@@ -188,7 +188,7 @@ Make sure the login and logout features work as intended before moving forward.
 You can test the `Logout` requests with RSpec:
 
 ```console
-$ pytest testing/app_testing/app_test::TestLogout
+$ pytest testing/app_testing/app_test.py::TestLogout
 ```
 
 You should also be able to test this in the React application by logging in to
