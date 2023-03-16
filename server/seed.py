@@ -7,8 +7,6 @@ from faker import Faker
 from app import app
 from models import db, Recipe, User
 
-db.init_app(app)
-
 fake = Faker()
 
 with app.app_context():
