@@ -2,12 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles";
+import Login from "../pages/Login";
+import {useHistory} from "react-router-dom";
+
 
 function NavBar({ user, setUser }) {
+  const history = useHistory();
   function handleLogoutClick() {
     fetch("/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
-        setUser(null);
+        setUser(null)
+        history.push("/landing");
       }
     });
   }
@@ -15,12 +20,16 @@ function NavBar({ user, setUser }) {
   return (
     <Wrapper>
       <Logo>
-        <Link to="/">Reciplease</Link>
+        <Link to="/"></Link>
       </Logo>
       <Nav>
-        <Button as={Link} to="/new">
-          New Recipe
+
+        <a href="/login">
+        <Button variant="outline">
+          Login
         </Button>
+        </a>
+        
         <Button variant="outline" onClick={handleLogoutClick}>
           Logout
         </Button>

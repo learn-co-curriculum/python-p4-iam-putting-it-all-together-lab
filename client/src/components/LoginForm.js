@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Button, Error, Input, FormField, Label } from "../styles";
+import {useHistory} from "react-router-dom";
 
 function LoginForm({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -19,7 +22,10 @@ function LoginForm({ onLogin }) {
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        r.json().then((user) => onLogin(user));
+        r.json().then((user) => {
+          onLogin(user);
+          history.push("/dashboard"); // navigate to dashboard component after successful login
+        });
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
@@ -54,9 +60,9 @@ function LoginForm({ onLogin }) {
         </Button>
       </FormField>
       <FormField>
-        {errors.map((err) => (
+        {/* {errors.map((err) => (
           <Error key={err}>{err}</Error>
-        ))}
+        ))} */}
       </FormField>
     </form>
   );

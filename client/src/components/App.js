@@ -4,6 +4,8 @@ import NavBar from "./NavBar";
 import Login from "../pages/Login";
 import RecipeList from "../pages/RecipeList";
 import NewRecipe from "../pages/NewRecipe";
+import Landing from "./Pages/Landing/Landing.jsx";
+import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -17,7 +19,8 @@ function App() {
     });
   }, []);
 
-  if (!user) return <Login onLogin={setUser} />;
+  // if (!user) return <Login onLogin={setUser} />;
+  // if (!user) return <Landing onLogin={setUser} />;
 
   return (
     <>
@@ -27,8 +30,17 @@ function App() {
           <Route path="/new">
             <NewRecipe user={user} />
           </Route>
+
+          <Route path="/login">
+            <Login onLogin={setUser} />
+          </Route>
+
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+
           <Route path="/">
-            <RecipeList />
+            <Landing />
           </Route>
         </Switch>
       </main>
