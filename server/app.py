@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-
+from datetime import datetime
 from flask import request, session
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 
 from config import app, db, api
 from models import User, Recipe
+
+date_str = '1995-05-23'
 
 class Signup(Resource):
     
@@ -14,15 +16,45 @@ class Signup(Resource):
         request_json = request.get_json()
 
         username = request_json.get('username')
+        first_name = request_json.get("first_name")
+        last_name = request_json.get("last_name")
+        email = request_json.get("email")
+        phone = request_json.get("phone")
         password = request_json.get('password')
+        dob = request_json.get("dob")
+        lot = request_json.get("lot")
+        street = request_json.get("street")
+        city = request_json.get("city")
+        state = request_json.get("state")
+        zip = request_json.get("zip")
+        photo_id = request_json.get("photo_id")
         image_url = request_json.get('image_url')
         bio = request_json.get('bio')
+        created_at = datetime.now()
+        updated_at = datetime.now()
+
+
+
 
         user = User(
             username=username,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            phone=phone,
+            dob=datetime.strptime(dob, '%Y-%m-%d'),
+            lot=lot,
+            street=street,
+            city=city,
+            state=state,
+            zip=zip,
+            photo_id=photo_id,
             image_url=image_url,
-            bio=bio
-        )
+            bio=bio,
+            created_at=created_at,
+            updated_at=updated_at
+)
+        
 
         # the setter will encrypt this
         user.password_hash = password
@@ -91,6 +123,57 @@ class Logout(Resource):
         
         return {'error': '401 Unauthorized'}, 401
 
+##################### units #####################
+
+# Create a new unit
+@app.route('/units', methods=['POST'])
+def create_unit():
+    data = request.get_json()
+    unit = Unit(**data)
+    db.session.add(unit)
+    db.session.commit()
+    return jsonify(unit.serialize()), 201
+
+# Get all units
+@app.route('/units', methods=['GET'])
+def get_units():
+    units = Unit.query.all()
+    return jsonify([unit.serialize() for unit in units]), 200
+
+# Get a specific unit
+@app.route('/units/<int:id>', methods=['GET'])
+def get_unit(id):
+    unit = Unit.query.get(id)
+    if unit is None:
+        return jsonify({'error': 'Unit not found'}), 404
+    return jsonify(unit.serialize()), 200
+
+# Update a unit
+@app.route('/units/<int:id>', methods=['PUT'])
+def update_unit(id):
+    data = request.get_json()
+    unit = Unit.query.get(id)
+    if unit is None:
+        return jsonify({'error': 'Unit not found'}), 404
+    for key, value in data.items():
+        setattr(unit, key, value)
+    db.session.commit()
+    return jsonify(unit.serialize()), 200
+
+# Delete a unit
+@app.route('/units/<int:id>', methods=['DELETE'])
+def delete_unit(id):
+    unit = Unit.query.get(id)
+    if unit is None:
+        return jsonify({'error': 'Unit not found'}), 404
+    db.session.delete(unit)
+    db.session.commit()
+    return jsonify({'message': 'Unit deleted successfully'}), 200
+
+
+
+
+#################### RecipeIndex ####################
 class RecipeIndex(Resource):
 
     def get(self):
