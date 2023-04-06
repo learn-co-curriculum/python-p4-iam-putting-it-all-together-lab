@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:900");
+
+:root {
+    --c1: rgb(37.409033877038894, 33.91091593475533, 8.659974905897114);
+    --c2: rgb(101.87586206896552, 82.06436781609196, 10.735632183908047);
+    --c3: rgb(6.067759078830823, 15.555358724534987, 12.204162976085032);
+    --c4: rgb(42.76600985221675, 174.89408866995075, 149.13546798029557);
+    --c5: rgb(147.71782178217822, 115.21782178217822, 9.623762376237623);
+    --c55: rgba(148, 116, 10, 0.183);
+    --c6: rgb(15.763124199743919, 66.70486555697823, 54.88028169014085);
+    --c7: rgb(19.191163976210706, 117.50382327952421, 98.20645709430757);
+    --c75: rgba(19, 118, 98, 0.296);
+    --c8: rgb(67.43333333333334, 55.142857142857146, 8.417460317460318);
+}
+
+:root {
+    --dblue: rgb(28.098005203816133, 24.39635732870772, 35.27233304423244);
+    --mblue: rgb(61.022821576763484, 64.0259336099585, 91.69813278008299);
+    --mlblue: rgb(91.49449618966977, 119.27773073666384, 158.51312447078746);
+    --lblue: rgb(127.68601895734596, 168.72748815165878, 194.59004739336493);
+    --llblue: rgba(128, 169, 195, 0.807);
+    --dpink: rgb(145.84798099762472, 93.6769596199525, 94.88598574821853);
+    --gray: rgb(160.01877133105802, 152.46075085324233, 158.7901023890785);
+    --pink: rgb(226.39220462850182, 156.72350791717417, 132.5931790499391);
+    --lpink: rgba(226, 156, 133, 0.504);
+    --lgray: rgb(198.2668579626973, 197.71736011477762, 192.5164992826399);
+}
+/* .homepage {
+    padding-top:2dvh;
+    display: flex;
+    text-align: center;
+    align-content: center;
+    position: relative;
+    width: 100dvw;
+    height:100dvh;
+} */
+
+.homepage {
+    background-color: teal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    width: 100vw;
+    height: 95vh;
+}
+
+.roam {
+    z-index: 1;
+    text-shadow: 4.3px 19.4px 12px rgba(0, 0, 0, 0.212),
+        22px 100px 80px rgba(0, 0, 0, 0.42);
+    box-shadow: inset;
+    /* margin-top:10dvh; */
+    min-width: 90dvw;
+    height: 16vw;
+    padding: 0;
+    display: inline-block;
+    font-family: "Montserrat", sans-serif;
+    font-size: 16dvw;
+    letter-spacing: 3dvw;
+    position: relative;
+    align-content: center;
+    /* transform: translateX(-50%); */
+    color: white;
+    background: url("https://i.pinimg.com/originals/9f/9c/c5/9f9cc5217bb04790e5fb852b665ca2ff.jpg");
+    background: url("https://wallpaper.dog/large/20524731.jpg");
+    background: url("https://external-preview.redd.it/XY1qHDEIa84ZqvMPdwGBFoKrpfiNNr60uvEKJ65wdyI.png?auto=webp&v=enabled&s=d5cd1ff647cbdb5c612a359cccfea690c3f6a842");
+    background-size: auto 200%;
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 80s linear infinite;
+}
+
+@keyframes shine {
+    from {
+        background-position: center 0;
+    }
+    to {
+        background-position: center 200%;
+    }
+}
+
+.num {
+    text-align: center;
+    display: inline-block;
+    align-content: center;
+    vertical-align: middle;
+    /* margin-top: -3%; */
+    margin-bottom: 7dvh;
+    font-family: "Montserrat";
+    font-size: 10dvw;
+    font-style: italic;
+    letter-spacing: 4dvw;
+    /* position: relative; */
+    color: var(--c6);
+}
+
+.roam > *:nth-child(1):hover {
+    transform: scale(1.1);
+}
+
+
+
+
+
+.top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    margin-left: 1rem;
+}

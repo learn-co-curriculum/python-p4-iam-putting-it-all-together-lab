@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Error, Input, FormField, Label } from "../styles";
 import {useHistory} from "react-router-dom";
+import "./LoginForm.css"
 
 function LoginForm({ onLogin }) {
   const [username, setUsername] = useState("");
@@ -8,6 +9,7 @@ function LoginForm({ onLogin }) {
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
+
 
 
   function handleSubmit(e) {
@@ -33,32 +35,32 @@ function LoginForm({ onLogin }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <FormField>
-        <Label htmlFor="username">Username</Label>
-        <Input
+    <form onSubmit={handleSubmit} className = "login-form login-container">
+      <div>
+        <label htmlFor="username">Username</label>
+        <input
           type="text"
           id="username"
           autoComplete="off"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-      </FormField>
-      <FormField>
-        <Label htmlFor="password">Password</Label>
-        <Input
+      </div>
+      <div>
+        <label htmlFor="password">Password</label>
+        <input
           type="password"
           id="password"
           autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-      </FormField>
-      <FormField>
-        <Button variant="fill" color="primary" type="submit">
+      </div>
+      <div>
+        <button variant="fill" color="primary" type="submit">
           {isLoading ? "Loading..." : "Login"}
-        </Button>
-      </FormField>
+        </button>
+      </div>
       <FormField>
         {/* {errors.map((err) => (
           <Error key={err}>{err}</Error>

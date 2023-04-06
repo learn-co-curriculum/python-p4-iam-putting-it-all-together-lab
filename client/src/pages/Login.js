@@ -7,9 +7,13 @@ import { Button } from "../styles";
 function Login({ onLogin }) {
   const [showLogin, setShowLogin] = useState(true);
 
+
+
+
+  
   return (
     <Wrapper>
-      <Logo>Reciplease</Logo>
+
       {showLogin ? (
         <>
           <LoginForm onLogin={onLogin} />

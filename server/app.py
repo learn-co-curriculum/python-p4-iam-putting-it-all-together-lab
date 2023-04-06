@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 from datetime import datetime
-from flask import request, session
+from flask import request, session, jsonify
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 
 from config import app, db, api
-from models import User, Recipe
+from models import User, Recipe, Unit, Lessee, Lessor, Lease
 
 date_str = '1995-05-23'
 
@@ -32,8 +32,6 @@ class Signup(Resource):
         bio = request_json.get('bio')
         created_at = datetime.now()
         updated_at = datetime.now()
-
-
 
 
         user = User(
@@ -74,10 +72,9 @@ class Signup(Resource):
 
             return user.to_dict(), 201
 
-        except IntegrityError:
-
-            print('no, here!')
-            
+        except IntegrityError as ie:
+            print(ie.orig)
+            print(ie.statement)
             return {'error': '422 Unprocessable Entity'}, 422
 
 class CheckSession(Resource):
@@ -129,7 +126,9 @@ class Logout(Resource):
 @app.route('/units', methods=['POST'])
 def create_unit():
     data = request.get_json()
+
     unit = Unit(**data)
+
     db.session.add(unit)
     db.session.commit()
     return jsonify(unit.serialize()), 201
@@ -170,6 +169,53 @@ def delete_unit(id):
     db.session.commit()
     return jsonify({'message': 'Unit deleted successfully'}), 200
 
+
+##################### Lease ######################
+
+# Create a new lease
+@app.route('/leases', methods=['POST'])
+def create_lease():
+    data = request.json
+    lease = Lease(**data)
+    db.session.add(lease)
+    db.session.commit()
+    return jsonify(lease.serialize()), 201
+
+# Get all leases
+@app.route('/leases', methods=['GET'])
+def get_all_leases():
+    leases = Lease.query.all()
+    return jsonify([lease.serialize() for lease in leases]), 200
+
+# Get a specific lease by ID
+@app.route('/leases/<int:id>', methods=['GET'])
+def get_lease(id):
+    lease = Lease.query.get(id)
+    if not lease:
+        return jsonify({'error': 'Lease not found'}), 404
+    return jsonify(lease.serialize()), 200
+
+# Update an existing lease
+@app.route('/leases/<int:id>', methods=['PUT'])
+def update_lease(id):
+    lease = Lease.query.get(id)
+    if not lease:
+        return jsonify({'error': 'Lease not found'}), 404
+    data = request.json
+    for key, value in data.items():
+        setattr(lease, key, value)
+    db.session.commit()
+    return jsonify(lease.serialize()), 200
+
+# Delete a lease by ID
+@app.route('/leases/<int:id>', methods=['DELETE'])
+def delete_lease(id):
+    lease = Lease.query.get(id)
+    if not lease:
+        return jsonify({'error': 'Lease not found'}), 404
+    db.session.delete(lease)
+    db.session.commit()
+    return jsonify({'message': 'Lease deleted'}), 200
 
 
 

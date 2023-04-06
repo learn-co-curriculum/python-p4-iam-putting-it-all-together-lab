@@ -101,13 +101,41 @@ class Unit (db.Model, SerializerMixin):
     __tablename__ = 'units'
     id = db.Column(db.Integer, primary_key=True)
     lessor_id = db.Column(db.Integer(), db.ForeignKey('lessors.id'))
+
+    name = db.Column(db.String, nullable=True)
+    unit_num = db.Column(db.String, nullable=True)
+    lot = db.Column(db.String, nullable=True)
+    street = db.Column(db.String, nullable=True)
+    city = db.Column(db.String, nullable=True)
+    state = db.Column(db.String, nullable=True)
+    zip = db.Column(db.String, nullable=True)
+    beds = db.Column(db.Integer, nullable=True)
+    sqft = db.Column(db.Integer, nullable=True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     def __repr__(self):
         return f'<Unit {self.id}: {self.name}>'
-
-
+    
+    def serialize(self):
+        data = {
+            'id': self.id,
+            'lessor_id': self.lessor_id,
+            'name': self.name,
+            'unit_num': self.unit_num,
+            'lot': self.lot,
+            'street': self.street,
+            'city': self.city,
+            'state': self.state,
+            'zip': self.zip,
+            'beds': self.beds,
+            'sqft': self.sqft,
+            'created_at': self.created_at.isoformat(),
+    }
+        if self.updated_at is not None:
+            data['updated_at'] = self.updated_at.isoformat()
+        return data
+    
 
 ################################  LEASE  #####################################
 class Lease (db.Model, SerializerMixin):
