@@ -1,0 +1,55 @@
+/* LoginForm.css */
+
+/* Main container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    width: 20rem;
+  }
+  
+  /* Form fields */
+  .login-form div {
+    margin: 0.5rem 0;
+  }
+  
+  .login-form label {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .login-form input[type="text"],
+  .login-form input[type="password"] {
+    padding: 0.5rem;
+    font-size: 1.1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    width: 100%;
+  }
+  
+  /* Submit button */
+  .login-form button[type="submit"] {
+    background-color: #0077ff;
+    color: #fff;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .login-form button[type="submit"]:hover {
+    background-color: #0052cc;
+  }
+  

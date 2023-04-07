@@ -30,7 +30,7 @@ function LoginForm() {
       if (r.ok) {
         r.json().then((user) => {
           setUser(user);
-          history.push("/dashboard"); // navigate to dashboard component after successful login
+          history.push("/Home"); // navigate to dashboard component after successful login
         });
       } else {
         r.json().then((err) => setErrors(err.errors));

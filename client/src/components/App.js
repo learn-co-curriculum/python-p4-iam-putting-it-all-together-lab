@@ -8,6 +8,7 @@ import Landing from "./Pages/Landing/Landing.jsx";
 import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
 import NewLeaseForm from "./Lease/NewLeaseForm";
 import NewUnitForm from "./Unit/NewUnitForm";
+import Home from "./Pages/Home/Home.jsx";
 
 import {UserProvider} from "./context.js"
 
@@ -34,6 +35,11 @@ function App() {
             <Dashboard  />
           </Route>
 
+          <Route path="/home">
+            <Home />
+          </Route>
+
+          
           <Route path="/newunit">
               <NewUnitForm />
           </Route>
@@ -41,7 +47,6 @@ function App() {
           <Route path="/newLease">
             <NewLeaseForm />
           </Route>
-
 
           <Route path="/landing">
             <Landing />

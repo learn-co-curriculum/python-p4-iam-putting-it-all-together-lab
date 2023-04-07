@@ -1,0 +1,59 @@
+.scroll-div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    max-height: 30vh;
+    border: 1px solid black;
+    overflow: scroll;
+    overscroll-behavior: auto;
+    
+}
+
+.unit-card-div {
+    width: 30vw;
+    height: 20vh;
+    margin: 2%;
+    background-color: whitesmoke;
+    display: flex;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.unit-card-image {
+    display: block;
+    object-fit: cover;
+    min-width: 15vw;
+    max-width: 15vw;
+    max-height: 20vh;
+    position: relative;
+}
+
+.unit-card-info {
+    font-size: .7rem;
+    padding: .5rem;
+
+    max-width: 15vw;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    object-fit: cover;
+}
+
+.b {
+    font-weight: bold;
+}
+
+.bed-bath-tag {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style-type: none;
+}
