@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Error, Input, FormField, Label, Textarea } from "../styles";
+import { UserContext} from "./context.js"
 
-function SignUpForm({ onLogin }) {
+function SignUpForm() {
+
+const {setUser} = useContext(UserContext)
+
+
   const [username, setUsername] = useState("");
   const [first_name, setFirst_name] = useState("");
   const [last_name, setLast_name] = useState("");
@@ -50,7 +55,7 @@ function SignUpForm({ onLogin }) {
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        r.json().then((user) => onLogin(user));
+        r.json().then((user) => setUser(user));
       } 
       // else {
       //   r.json().then((err) => setErrors(err.errors));

@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Error, Input, FormField, Label } from "../styles";
 import {useHistory} from "react-router-dom";
 import "./LoginForm.css"
 
-function LoginForm({ onLogin }) {
+import {UserContext} from "./context";
+
+function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
+
+  const {setUser} = useContext(UserContext);
 
 
 
@@ -25,7 +29,7 @@ function LoginForm({ onLogin }) {
       setIsLoading(false);
       if (r.ok) {
         r.json().then((user) => {
-          onLogin(user);
+          setUser(user);
           history.push("/dashboard"); // navigate to dashboard component after successful login
         });
       } else {
