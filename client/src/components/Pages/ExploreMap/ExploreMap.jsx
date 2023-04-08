@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {useHistory} from "react-router-dom"
 import UnitMapCards from "../../Unit/UnitMapCards";
 import UnitAllCards from "../../Unit/UnitAllCards";
 import { UserContext } from "../../context"
+import FilterBar from "./FilterBar.jsx"
 
 
 function ExploreMap() {
@@ -16,11 +17,13 @@ function ExploreMap() {
 
     return (
         <div className="explore-map-container">
-                            <form className="home-search-div"
-                onSubmit = {handleSubmit}>
-                    <input onChange={updateSearch} className="home-search"></input>
-                    <button href="/explore" className="home-search-button">Search</button>
-                </form>
+            <div className = "explorer-filter-container-">
+            
+            
+                <FilterBar />
+            
+            </div>
+
             <div className="explore-map">
                 <div className="explore-map-cards">
                     {(searchState === "All")?

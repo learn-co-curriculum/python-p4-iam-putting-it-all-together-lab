@@ -61,7 +61,7 @@ function handlePSearch(e) {
 
 useEffect(() => {
   setFilteredUnits(allUnits)
-},[])
+},[allUnits])
 
 useEffect(() => {
   if (searchState.length === 0 || searchState === "") {
@@ -69,14 +69,14 @@ useEffect(() => {
   } else {
     const fUnits = allUnits.filter((unit) => {
       return (
-        unit.name.toString().toLowerCase().includes(searchState.toLowerCase()) ||
-        unit.unit_num.toString().toLowerCase().includes(searchState.toLowerCase()) ||
-        unit.lot.toString().toLowerCase().includes(searchState.toLowerCase()) ||
-        unit.street.toString().toLowerCase().includes(searchState.toLowerCase()) ||
-        unit.city.toString().toLowerCase().includes(searchState.toLowerCase()) ||
-        unit.state.toString().toLowerCase().includes(searchState.toLowerCase()) ||
-        unit.zip.toString().toLowerCase().includes(searchState.toLowerCase()) ||
-        unit.sqft.toString().toLowerCase().includes(searchState.toLowerCase())
+        unit.name.toString().toLowerCase().includes(searchState.toLowerCase().trim()) ||
+        unit.unit_num.toString().toLowerCase().includes(searchState.toLowerCase().trim()) ||
+        unit.lot.toString().toLowerCase().includes(searchState.toLowerCase().trim()) ||
+        unit.street.toString().toLowerCase().includes(searchState.toLowerCase().trim()) ||
+        unit.city.toString().toLowerCase().includes(searchState.toLowerCase().trim()) ||
+        unit.state.toString().toLowerCase().includes(searchState.toLowerCase().trim()) ||
+        unit.zip.toString().toLowerCase().includes(searchState.toLowerCase().trim()) ||
+        unit.sqft.toString().toLowerCase().includes(searchState.toLowerCase().trim())
       );
     });
     setFilteredUnits(fUnits);

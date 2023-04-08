@@ -1,0 +1,50 @@
+
+.filter-bar {
+    margin:0;
+    margin-top: 5vh;
+    width: 100vw;
+    height: 6vh;
+    background-color: teal;
+    justify-content: space-between;
+    padding-top: .5vh;
+    padding-bottom: .5vh;
+}
+
+
+.dropdown-select {
+    display: inline-block;
+    background-color: whitesmoke;
+    color: black;
+    font-size: 1rem;
+    border: 2px teal solid;
+    cursor: pointer;
+    width: 10vw;
+    height: 6vh;
+    z-index: 1;
+    border-radius: .3rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+}
+
+.explore-search-div, .explore-search {
+    width: 25vw;
+    border: 2px whitesmoke;
+    display: inline-block;
+    padding: 0;
+    height: 5vh;
+    border-radius: .3rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    font-style: italic;
+}
+
+.explore-search-div {
+    padding: .2rem;
+}
+
+.explore-search:hover, .dropdown-select:hover {
+    background-color: rgb(218, 249, 249)
+}
+.explore-search:hover {
+    background-color: rgb(218, 249, 249)
+}
