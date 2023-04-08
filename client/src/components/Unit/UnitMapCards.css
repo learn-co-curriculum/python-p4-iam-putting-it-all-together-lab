@@ -1,14 +1,17 @@
 .scroll-div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
     margin: 0;
+    margin-top: 10vh;
     padding: 0;
-    max-height: 30vh;
+    max-height: 90vh;
+    width: 30vw;
     border: 1px solid black;
     overflow: scroll;
     overscroll-behavior: auto;
+    position:absolute;
+
+    right:1vw;
     
 }
 

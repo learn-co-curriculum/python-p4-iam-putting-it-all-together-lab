@@ -3,10 +3,11 @@ import { UserContext } from "../context.js";
 // import '../../styles/tailwind.css'
 import "./UnitMapCards.css";
 
-function UnitCards() {
-    const { allUnits } = useContext(UserContext);
-
-    const allUnitCards = allUnits.map((unit) => {
+function UnitMapCards() {
+    const { allUnits, handlePSearch, searchState, filteredUnits } = useContext(UserContext);
+    
+    
+    const filteredUnitCards = filteredUnits.map((unit) => {
         const {
             id,
             name,
@@ -19,6 +20,9 @@ function UnitCards() {
             beds,
             sqft,
         } = unit;
+
+        
+
         return (
             <div className=".sm: unit-card-div" key={id}>
 
@@ -51,8 +55,8 @@ function UnitCards() {
 
             </div>
         );
-    });
-    return <div className="scroll-div">{allUnitCards}</div>;
+    })
+    return <div className="scroll-div">{filteredUnitCards}</div>;
 }
 
-export default UnitCards;
+export default UnitMapCards;

@@ -14,7 +14,7 @@
     border-radius: 1rem;
     overflow: hidden;
     position: relative;
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
     box-shadow: 0.5px 1.3px 18.4px rgba(0, 0, 0, 0.016),
         1.6px 4.5px 61.6px rgba(0, 0, 0, 0.024),
         7px 20px 276px rgba(0, 0, 0, 0.04);

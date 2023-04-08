@@ -21,9 +21,7 @@
     position:relative;
     margin-top: 30vh;
 }
-.home-search:hover {
-    opacity: .9;
-}
+
 
 .feature-tag {
     font-size: 2rem;
@@ -34,19 +32,44 @@
     vertical-align: middle;
 }
 
-.home-search {
+.home-search-div {
     width: 60vw;
+    /* min-height: 15vh; */
     max-width: 100vw;
     padding: .3%;
     position: absolute;
     top: 60%;
     left: 50%;
     transform: translateX(-50%);
-    opacity: .5;
     z-index: 2;
     font-size: 1.3rem;
 }
 
+.home-search, home-search-button {
+    width: 50vw;
+    min-height: 5vh;
+    max-height: 10vh;
+    display: inline-block;
+    opacity: .5;
+}
+
+.home-search-button {
+    display: inline-block;
+    width: 10dw;
+    min-height: 6vh;
+    margin-left: 1vw;
+    background-color: rgba(200, 151, 18, 0.928);
+    opacity: .9;
+}
+
+
+.home-search-button:hover {
+    color: whitesmoke;
+    background-color: teal;
+}
+.home-search:hover {
+    opacity: .9;
+}
 .tagline {
     color: rgba(245, 245, 245, 0.828);
     font-size: 2.5rem;

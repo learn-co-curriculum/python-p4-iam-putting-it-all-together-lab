@@ -2,13 +2,12 @@ import React, { useEffect, useState, createContext, useContext } from "react";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./Pages/Global/TopBar";
 import Login from "../pages/Login";
-import RecipeList from "../pages/RecipeList";
-import NewRecipe from "../pages/NewRecipe";
 import Landing from "./Pages/Landing/Landing.jsx";
 import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
 import NewLeaseForm from "./Lease/NewLeaseForm";
 import NewUnitForm from "./Unit/NewUnitForm";
 import Home from "./Pages/Home/Home.jsx";
+import ExploreMap from "./Pages/ExploreMap/ExploreMap";
 
 import {UserProvider} from "./context.js"
 
@@ -27,9 +26,8 @@ function App() {
       <main>
         <Switch>
 
-          <Route path="/login">
-            <Login />
-          </Route>
+          <Route path="/login"><Login /></Route>
+          <Route path="/explore"><ExploreMap /></Route>
 
           <Route path="/dashboard">
             <Dashboard  />

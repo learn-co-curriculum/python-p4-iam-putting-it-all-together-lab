@@ -8,11 +8,9 @@ import  {UserContext}  from "../../context.js";
 
 import "./TopBar.css"
 
-console.log(`Topbar: ${UserContext}`)
-
 function NavBar() {
 
-  const {user, setUser} = useContext(UserContext)
+  const {user, setUser, allUnits, setFilteredUnits} = useContext(UserContext)
 
   const history = useHistory();
   function handleLogoutClick() {
@@ -24,6 +22,11 @@ function NavBar() {
     });
   }
 
+  const renderAllUnits = () => {
+    console.log("renderAllUnits")
+    setFilteredUnits(allUnits)
+  }
+
   return (
       <div className = "top-bar">
 
@@ -33,9 +36,15 @@ function NavBar() {
       
       <nav className = "top-bar-buttons-container">
         <a href="/dashboard">
-          <button variant="outline">
+          <button onClick={()=>renderAllUnits()} variant="outline">
             Dashboard
           </button>
+        </a>
+
+        <a href="/explore">
+        <button onClick={renderAllUnits} variant="outline">
+          Explore
+        </button>
         </a>
 
         <a href="/login">
