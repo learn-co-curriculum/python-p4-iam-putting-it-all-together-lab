@@ -4,9 +4,9 @@
     margin: 0;
     margin-top: 0vh;
     padding: 0;
-    min-height: 90vh;
-    width: 30vw;
-    border: 1px solid black;
+    min-height: 85vh;
+    max-height: 85vh;
+    width: 35vw;
     overflow: scroll;
     overscroll-behavior: auto;
     position:absolute;
@@ -17,7 +17,7 @@
 
 .unit-card-div {
     width: 30vw;
-    height: 20vh;
+    height: 25vh;
     margin: 2%;
     background-color: whitesmoke;
     display: flex;
@@ -25,12 +25,18 @@
     overflow: hidden;
 }
 
+.unit-card-div:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
 .unit-card-image {
     display: block;
     object-fit: cover;
     min-width: 15vw;
     max-width: 15vw;
-    max-height: 20vh;
+    max-height: 25vh;
     position: relative;
 }
 

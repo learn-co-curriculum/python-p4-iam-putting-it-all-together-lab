@@ -83,6 +83,49 @@ useEffect(() => {
   }
 }, [searchState, allUnits]);
 
+// need to use useEffect to set up address concatenation and set it some a state that's an array of objects with lat/long
+
+
+// useEffect(() => {
+//   console.log(allUnits)
+
+// },[])
+// console.log(allUnits)
+// ///////// To Convert Address to Lat/Long //////////
+// const u = allUnits[0]
+// console.log(u)
+
+
+// const address = u.lot + " " + u.street + " " + u.city + " " + u.state + " " + u.zip
+
+// console.log(address)
+// const addressArr = []
+
+// function showAddress() {
+//   var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + 'address'
+//   fetch(url)
+//                 .then(response => response.json())
+//                 .then(data => addressArr = data)
+//                 .then(() => console.log(addressArr))
+//                 .catch(err => console.log(err))    
+// }
+
+
+
+
+
+// function getLatLong(address) {
+//   const geocoder = new google.maps.Geocoder();
+//   geocoder.geocode({ address: address }, (results, status) => {
+//     if (status === "OK") {
+//       console.log(results[0].geometry.location.lat());
+//       console.log(results[0].geometry.location.lng());
+//     } else {
+//       alert("Geocode was not successful for the following reason: " + status);
+//     }
+//   });
+// }
+
 
 
 
