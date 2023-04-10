@@ -14,6 +14,7 @@ function UnitApplicationForm() {
         setUnitOptionsApplication,
         appFormUnitPrefill,
         setAppFormUnitPrefill,
+        currentAppLessor,
     } = useContext(UserContext);
 
     return (
@@ -47,14 +48,20 @@ function UnitApplicationForm() {
                 <li>State: <span>{currentAppUnit.state}</span></li>
                 <li>Zip: <span>{currentAppUnit.zip}</span></li>
                 <li>Unit Number: <span>{currentAppUnit.unit_num}</span></li>
+                <br />
 <li>--Details</li>
                 <li>Unit Type: <span>{currentAppUnit.unit_type}</span></li>
                 <li>Unit Size: <span>{currentAppUnit.sqft}</span></li>
                 <li>Unit Beds: <span>{currentAppUnit.beds}</span></li>
                 <li>Unit Baths: <span>{currentAppUnit.baths}</span></li>
                 <li>Unit Rent: <span>{currentAppUnit.rent}</span></li>
+                <br />
                 <li>--Landlord Info</li>
-                {/* <li>Landlord Name: <span>{currentAppUnit.lessor.first_name}</span></li> */}
+                <li>First Name: <span>{currentAppLessor.first_name}</span></li>
+                <li>Last Name: <span>{currentAppLessor.last_name}</span></li>
+                <li>Phone: <span>{currentAppLessor.phone}</span></li>
+                <li>Email: <span>{currentAppLessor.email}</span></li>
+
                 </div>    
                 ) : <h4>Please Select a Unit for this Application</h4>
         }

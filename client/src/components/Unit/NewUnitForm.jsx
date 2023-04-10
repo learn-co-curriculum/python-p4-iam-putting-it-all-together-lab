@@ -1,5 +1,6 @@
 import React, { useState, useContext} from "react";
 import {UserContext} from "../context.js";
+import "./NewUnitForm.css"
 
 function NewUnitForm() {
 
@@ -19,6 +20,7 @@ function NewUnitForm() {
         zip: "",
         beds: "",
         sqft: "",
+        price: "",
     });
 
 
@@ -50,6 +52,7 @@ function NewUnitForm() {
                     zip: "",
                     beds: "",
                     sqft: "",
+                    price: "",
                 });
             })
             .catch((error) => {
@@ -140,6 +143,16 @@ function NewUnitForm() {
                     onChange={handleInputChange}
                 />
             </label>
+            <label>
+                Price:
+                <input
+                    type="number"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleInputChange}
+                />
+            </label>
+
             <button type="submit">Submit</button>
         </form>
     );

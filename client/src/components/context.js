@@ -13,12 +13,18 @@ const [loggedIn, setLoggedIn] = useState(false)
 const [searchState, setSearchState] = useState("All")
 const [filteredUnits, setFilteredUnits] = useState([])
 const [currentAppUnit, setCurrentAppUnit] = useState(null)
+const [currentAppLessorId, setCurrentAppLessorId] = useState(currentAppUnit? currentAppUnit.lessor_id : "")
+
 const [unitOptionsApplication, setUnitOptionsApplication] = useState(true)
 
 const [newUnitApplication, setNewUnitApplication] = useState({
   lessee_id: user? user.id : "",
   unit_id: currentAppUnit? currentAppUnit.unit_id : "",
   status: "Submitted, Pending Landlord Approval",
+})
+
+const [currentAppLessor, setCurrentAppLessor] = useState({
+
 })
 
 ///refactor this for lease later. Application only needs unit id, lessor id and status
@@ -38,7 +44,6 @@ const [appFormUnitPrefill, setAppFormUnitPrefill] = useState({
   zip: currentAppUnit ? currentAppUnit.zip : "",
 })
 
-console.log(appFormUnitPrefill)
 
 useEffect(() => {
   if (user) {
@@ -61,6 +66,19 @@ useEffect(() => { // auto-login & set user variables
 }, []);
 
 ///////////////////// UNITS BY ID //////////////////////////
+
+useEffect(() => { // fetch allUnits
+  if (currentAppUnit) fetch("/users/"+currentAppLessorId).then((r) => {
+  if (r.ok) {
+    r.json().then((user) => setCurrentAppLessor(user));
+  }
+});    
+}, [currentAppUnit, currentAppLessorId]);
+
+
+useEffect(() => {
+  setCurrentAppLessorId(currentAppUnit? currentAppUnit.lessor_id : "")
+}, [currentAppLessorId, currentAppUnit, currentAppLessor])
 
 useEffect(() => { // fetch allUnits
     fetch("/units").then((r) => {
@@ -187,7 +205,8 @@ return (
         unitOptionsApplication,
         setUnitOptionsApplication,
         appFormUnitPrefill,
-        setAppFormUnitPrefill
+        setAppFormUnitPrefill,
+        currentAppLessor,
 
     }}>
     {children}

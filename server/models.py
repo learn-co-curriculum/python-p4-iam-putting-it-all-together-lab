@@ -80,6 +80,10 @@ class Lessor (db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
+
+    #relationships
+    user = db.relationship('User', backref='lessors')
+
     def __repr__(self):
         return f'<Lessor {self.id}: {self.name}>'
 
@@ -110,6 +114,7 @@ class Unit (db.Model, SerializerMixin):
     zip = db.Column(db.String, nullable=True)
     beds = db.Column(db.Integer, nullable=True)
     sqft = db.Column(db.Integer, nullable=True)
+    price = db.Column(db.Integer, nullable=True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
@@ -123,6 +128,7 @@ class Unit (db.Model, SerializerMixin):
         data = {
             'id': self.id,
             'lessor_id': self.lessor_id,
+            'lessor': self.lessor, # 'lessor': {'id': 1, 'name': 'John Doe', ...}
             'name': self.name,
             'unit_num': self.unit_num,
             'lot': self.lot,
@@ -132,6 +138,7 @@ class Unit (db.Model, SerializerMixin):
             'zip': self.zip,
             'beds': self.beds,
             'sqft': self.sqft,
+            'price': self.price,
             'created_at': self.created_at.isoformat(),
     }
         if self.updated_at is not None:

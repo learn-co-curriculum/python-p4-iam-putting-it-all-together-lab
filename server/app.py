@@ -88,6 +88,29 @@ class CheckSession(Resource):
             return user.to_dict(), 200
 
         return {'error': '401 Unauthorized'}, 401
+############ users endpoints ############
+
+@app.route('/users', methods=['GET'])
+def get_users():
+    users = User.query.all()
+    return jsonify([user.serialize() for user in users])
+
+@app.route('/users/<int:id>', methods=['GET'])
+def get_user(id):
+    user = User.query.get(id)
+    return jsonify(user.serialize())
+
+@app.route('/users/<int:id>', methods=['PUT'])
+def update_user(id):
+    data = request.get_json()
+    user = User.query.get(id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+    for key, value in data.items():
+        setattr(user, key, value)
+    db.session.commit()
+    return jsonify(user.serialize())
+    
 
 class Login(Resource):
     
@@ -139,6 +162,7 @@ def create_unit():
 def get_units():
     units = Unit.query.all()
     return jsonify([unit.serialize() for unit in units]), 200
+
 
 # Get a specific unit
 @app.route('/units/<int:id>', methods=['GET'])
