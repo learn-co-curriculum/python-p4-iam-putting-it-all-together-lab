@@ -11,7 +11,7 @@ from config import db, bcrypt
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serialize_rules = ('-recipes.user', '-_password_hash',)
+    serialize_rules = ('-_password_hash',)
 
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String)
@@ -32,7 +32,6 @@ class User(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    recipes = db.relationship('Recipe', backref='user')
 
     def serialize(self):
         return {
@@ -114,6 +113,9 @@ class Unit (db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
+    #relationships
+    lessor = db.relationship('Lessor', backref='units')
+
     def __repr__(self):
         return f'<Unit {self.id}: {self.name}>'
     
@@ -136,6 +138,20 @@ class Unit (db.Model, SerializerMixin):
             data['updated_at'] = self.updated_at.isoformat()
         return data
     
+################################  APPLICATION  #####################################
+
+class UnitApplication (db.Model, SerializerMixin):
+    __tablename__ = 'unit_applications'
+    id = db.Column(db.Integer, primary_key=True)
+    lessee_id = db.Column(db.Integer(), db.ForeignKey('lessees.id'))
+    unit_id = db.Column(db.Integer(), db.ForeignKey('units.id'))
+    status = db.Column(db.String, nullable=True)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+
+    def __repr__(self):
+        return f'<UnitApplication {self.id}: {self.name}>'
+
 
 ################################  LEASE  #####################################
 class Lease (db.Model, SerializerMixin):
@@ -165,19 +181,19 @@ class Lease (db.Model, SerializerMixin):
         return f'<Lease {self.id}: {self.name}>'
 
 ################################  RECIPE  #####################################
-class Recipe(db.Model, SerializerMixin):
-    __tablename__ = 'recipes'
-    __table_args__ = (
-        db.CheckConstraint('length(instructions) >= 50'),
-    )
+# class Recipe(db.Model, SerializerMixin):
+#     __tablename__ = 'recipes'
+#     __table_args__ = (
+#         db.CheckConstraint('length(instructions) >= 50'),
+#     )
 
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String, nullable=False)
-    instructions = db.Column(db.String, nullable=False)
-    minutes_to_complete = db.Column(db.Integer)
+#     id = db.Column(db.Integer, primary_key=True)
+#     title = db.Column(db.String, nullable=False)
+#     instructions = db.Column(db.String, nullable=False)
+#     minutes_to_complete = db.Column(db.Integer)
 
-    user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
+#     user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
 
-    def __repr__(self):
-        return f'<Recipe {self.id}: {self.title}>'
+#     def __repr__(self):
+#         return f'<Recipe {self.id}: {self.title}>'
     

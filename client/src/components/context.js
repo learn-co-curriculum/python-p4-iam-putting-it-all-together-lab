@@ -12,6 +12,43 @@ const [pSearchResults, setPSearchResults] = useState([])
 const [loggedIn, setLoggedIn] = useState(false)
 const [searchState, setSearchState] = useState("All")
 const [filteredUnits, setFilteredUnits] = useState([])
+const [currentAppUnit, setCurrentAppUnit] = useState(null)
+const [unitOptionsApplication, setUnitOptionsApplication] = useState(true)
+
+const [newUnitApplication, setNewUnitApplication] = useState({
+  lessee_id: user? user.id : "",
+  unit_id: currentAppUnit? currentAppUnit.unit_id : "",
+  status: "Submitted, Pending Landlord Approval",
+})
+
+///refactor this for lease later. Application only needs unit id, lessor id and status
+const [appFormUnitPrefill, setAppFormUnitPrefill] = useState({
+  lessor_id: currentAppUnit ? currentAppUnit.lessor_id : "",
+  lessee_id: user ? user.id : "",
+  unit_id: currentAppUnit ? currentAppUnit.unit_id : "",
+  beds: currentAppUnit ? currentAppUnit.beds : "",
+  baths: currentAppUnit ? currentAppUnit.baths : "",
+  sqft: currentAppUnit ? currentAppUnit.sqft : "",
+  type: currentAppUnit ? currentAppUnit.type : "",
+  lot: currentAppUnit ? currentAppUnit.lot :"",
+  street: currentAppUnit ? currentAppUnit.street : "",
+  unit_num: currentAppUnit ? currentAppUnit.unit_num :"",
+  city: currentAppUnit ? currentAppUnit.city :"",
+  state: currentAppUnit ? currentAppUnit.state : "",
+  zip: currentAppUnit ? currentAppUnit.zip : "",
+})
+
+console.log(appFormUnitPrefill)
+
+useEffect(() => {
+  if (user) {
+    setAppFormUnitPrefill(prevState => ({
+      ...prevState,
+      lessee_id: user.id
+    }))
+  }
+}, [user])
+
 
 useEffect(() => { // auto-login & set user variables
   fetch("/check_session").then((r) => {
@@ -83,6 +120,11 @@ useEffect(() => {
   }
 }, [searchState, allUnits]);
 
+
+
+
+
+
 // need to use useEffect to set up address concatenation and set it some a state that's an array of objects with lat/long
 
 
@@ -139,7 +181,13 @@ return (
         handlePSearch,
         filteredUnits,
         setFilteredUnits,
-        searchState
+        searchState,
+        currentAppUnit,
+        setCurrentAppUnit,
+        unitOptionsApplication,
+        setUnitOptionsApplication,
+        appFormUnitPrefill,
+        setAppFormUnitPrefill
 
     }}>
     {children}

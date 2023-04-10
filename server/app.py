@@ -5,7 +5,7 @@ from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 
 from config import app, db, api
-from models import User, Recipe, Unit, Lessee, Lessor, Lease
+from models import User, Unit, Lessee, Lessor, Lease, UnitApplication
 
 date_str = '1995-05-23'
 
@@ -127,7 +127,8 @@ class Logout(Resource):
 def create_unit():
     data = request.get_json()
 
-    unit = Unit(**data)
+    lessor_id = data.pop('lessor_id')
+    unit = Unit(**data, lessor_id=lessor_id)
 
     db.session.add(unit)
     db.session.commit()
@@ -168,6 +169,50 @@ def delete_unit(id):
     db.session.delete(unit)
     db.session.commit()
     return jsonify({'message': 'Unit deleted successfully'}), 200
+
+##################### UnitApplication #####################
+
+
+
+@app.route('/unit_applications', methods=['POST'])
+def create_unit_application():
+    data = request.json
+    unit_application = UnitApplication(**data)
+    db.session.add(unit_application)
+    db.session.commit()
+    return jsonify(unit_application.serialize()), 201
+
+@app.route('/unit_applications', methods=['GET'])
+def get_all_unit_applications():
+    unit_applications = UnitApplication.query.all()
+    return jsonify([unit_application.serialize() for unit_application in unit_applications]), 200
+
+@app.route('/unit_applications/<int:id>', methods=['GET'])
+def get_unit_application(id):
+    unit_application = UnitApplication.query.get(id)
+    if not unit_application:
+        return jsonify({'error': 'UnitApplication not found'}), 404
+    return jsonify(unit_application.serialize()), 200
+
+@app.route('/unit_applications/<int:id>', methods=['PUT'])
+def update_unit_application(id):
+    data = request.json
+    unit_application = UnitApplication.query.get(id)
+    if not unit_application:
+        return jsonify({'error': 'UnitApplication not found'}), 404
+    for key, value in data.items():
+        setattr(unit_application, key, value)
+    db.session.commit()
+    return jsonify(unit_application.serialize()), 200
+
+@app.route('/unit_applications/<int:id>', methods=['DELETE'])
+def delete_unit_application(id):
+    unit_application = UnitApplication.query.get(id)
+    if not unit_application:
+        return jsonify({'error': 'UnitApplication not found'}), 404
+    db.session.delete(unit_application)
+    db.session.commit()
+    return jsonify({'message': 'UnitApplication deleted successfully'}), 200
 
 
 ##################### Lease ######################
@@ -220,53 +265,52 @@ def delete_lease(id):
 
 
 #################### RecipeIndex ####################
-class RecipeIndex(Resource):
+# class RecipeIndex(Resource):
 
-    def get(self):
+#     def get(self):
 
-        if session.get('user_id'):
+#         if session.get('user_id'):
 
-            user = User.query.filter(User.id == session['user_id']).first()
+#             user = User.query.filter(User.id == session['user_id']).first()
 
-            return [recipe.to_dict() for recipe in user.recipes], 200
+#             return [recipe.to_dict() for recipe in user.recipes], 200
         
-        return {'error': '401 Unauthorized'}, 401
+#         return {'error': '401 Unauthorized'}, 401
         
-    def post(self):
+#     def post(self):
 
-        if session.get('user_id'):
+#         if session.get('user_id'):
 
-            request_json = request.get_json()
+#             request_json = request.get_json()
 
-            title = request_json['title']
-            instructions = request_json['instructions']
-            minutes_to_complete = request_json['minutes_to_complete']
+#             title = request_json['title']
+#             instructions = request_json['instructions']
+#             minutes_to_complete = request_json['minutes_to_complete']
 
-            try:
+#             try:
 
-                recipe = Recipe(
-                    title=title,
-                    instructions=instructions,
-                    minutes_to_complete=minutes_to_complete,
-                    user_id=session['user_id'],
-                )
+#                 recipe = Recipe(
+#                     title=title,
+#                     instructions=instructions,
+#                     minutes_to_complete=minutes_to_complete,
+#                     user_id=session['user_id'],
+#                 )
 
-                db.session.add(recipe)
-                db.session.commit()
+#                 db.session.add(recipe)
+#                 db.session.commit()
 
-                return recipe.to_dict(), 201
+#                 return recipe.to_dict(), 201
 
-            except IntegrityError:
+#             except IntegrityError:
 
-                return {'error': '422 Unprocessable Entity'}, 422
+#                 return {'error': '422 Unprocessable Entity'}, 422
 
-        return {'error': '401 Unauthorized'}, 401
+#         return {'error': '401 Unauthorized'}, 401
 
 api.add_resource(Signup, '/signup', endpoint='signup')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(Logout, '/logout', endpoint='logout')
-api.add_resource(RecipeIndex, '/recipes', endpoint='recipes')
 
 
 if __name__ == '__main__':

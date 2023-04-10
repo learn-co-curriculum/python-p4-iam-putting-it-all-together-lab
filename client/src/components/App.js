@@ -7,7 +7,8 @@ import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
 import NewLeaseForm from "./Lease/NewLeaseForm";
 import NewUnitForm from "./Unit/NewUnitForm";
 import Home from "./Pages/Home/Home.jsx";
-import ExploreMap from "./Pages/ExploreMap/ExploreMap";
+import ExploreMap from "./Pages/ExploreMap/ExploreMap.jsx";
+import UnitApplication from "./Lease/UnitApplication.jsx";
 
 import {UserProvider} from "./context.js"
 
@@ -44,6 +45,10 @@ function App() {
 
           <Route path="/newLease">
             <NewLeaseForm />
+          </Route>
+
+          <Route path="/unit_application">
+            <UnitApplication  />
           </Route>
 
           <Route path="/landing">

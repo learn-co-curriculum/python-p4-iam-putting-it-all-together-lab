@@ -53,7 +53,7 @@
         22px 100px 80px rgba(0, 0, 0, 0.42);
     box-shadow: inset;
     /* margin-top:10dvh; */
-    min-width: 90dvw;
+    min-width: 90vw;
     height: 16vw;
     padding: 0;
     display: inline-block;

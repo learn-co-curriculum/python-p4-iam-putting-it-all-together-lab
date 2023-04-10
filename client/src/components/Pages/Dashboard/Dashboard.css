@@ -1,5 +1,16 @@
 
 .dashboard-container {
-    padding-top: 15vh;
+    padding-top: 3.5vh;
     height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.dashboard-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
 }
