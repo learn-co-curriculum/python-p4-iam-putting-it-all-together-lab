@@ -175,36 +175,32 @@ useEffect(() => {
 
 
   useEffect(() => {
-    if(currentAppUnit && currentAppUnit.lessor_id) {
-        setCurrentAppLessorId(currentAppUnit.lessor_id)
-        setCurrentAppUnitId(currentAppUnit.id)
+    if (currentAppUnit && currentAppUnit.lessor_id) {
+      setCurrentAppLessorId(currentAppUnit.lessor_id);
+      setCurrentAppUnitId(currentAppUnit.id);
     }
-  }, []);
-
-
+  }, [currentAppUnit]); ///watch***********
+  
   //// Fetch & set all applications
   useEffect(() => {
-
-        fetch("/unit_applications")
-        .then((r) => r.json())
-        .then((applications) => {
-            setAllApplications(applications)
-        })
-    }
-  , [user]);
-
+    fetch("/unit_applications")
+      .then((r) => r.json())
+      .then((applications) => {
+        setAllApplications(applications);
+      })
+  }, [user]);
+  
   console.log(allApplications)
-
-//// Current User's Applications
-useEffect(() => {
-  if(user && allApplications) {
+  
+  //// Current User's Applications
+  useEffect(() => {
+    if (user && allApplications) {
       const uApps = allApplications.filter(
-          (app) => (app.lessee_id === user.id || app.lessor_id === user.id)
+        (app) => app.lessee_id === user.id || app.lessor_id === user.id
       );
-      console.log(uApps)
       setUserApplications(uApps);
-  }
-}, []);
+    }
+  }, [user, allApplications]);
 
 
 
