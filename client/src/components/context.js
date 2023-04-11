@@ -5,6 +5,11 @@ const UserContext = createContext();
 const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [allUnits, setAllUnits] = useState([]);
+
+    const [allApplications, setAllApplications] = useState(null);
+    const [userApplications, setUserApplications] = useState(null);
+    const [selectedApplication, setSelectedApplication] = useState(null);
+
     const [userUnits, setUserUnits] = useState([]);
     const [pSearchResults, setPSearchResults] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
@@ -133,8 +138,11 @@ useEffect(() => {
             }
         });
     }, []);
-    ///////////////////// Application /////////////////////////
+    ////////////////////////////////////////////////////////////
+    ///////////////////// Applications /////////////////////////
 
+
+    /// New Application
     function handleApplicationSubmit() {
       
       if (user && currentAppUnit) {
@@ -166,8 +174,6 @@ useEffect(() => {
   }
 
 
-        
-
   useEffect(() => {
     if(currentAppUnit && currentAppUnit.lessor_id) {
         setCurrentAppLessorId(currentAppUnit.lessor_id)
@@ -175,10 +181,37 @@ useEffect(() => {
     }
   }, []);
 
-  console.log(currentAppUnit)
-  // console.log(currentAppLessor)
-  // console.log(currentAppLessorId)
 
+  //// Fetch & set all applications
+  useEffect(() => {
+
+        fetch("/unit_applications")
+        .then((r) => r.json())
+        .then((applications) => {
+            setAllApplications(applications)
+        })
+    }
+  , [user]);
+
+  console.log(allApplications)
+
+//// Current User's Applications
+useEffect(() => {
+  if(user && allApplications) {
+      const uApps = allApplications.filter(
+          (app) => (app.lessee_id === user.id || app.lessor_id === user.id)
+      );
+      console.log(uApps)
+      setUserApplications(uApps);
+  }
+}, []);
+
+
+
+
+
+
+    /////////////////////////////////////////////////////////////
     /////////////////////  CURRENT USER'S UNITS  ////////////////
 
     useEffect(() => {
@@ -315,6 +348,10 @@ useEffect(() => {
                 setUnitToEdit,
                 unitEditPrefill,
                 setUnitEditPrefill,
+                userApplications,
+                setUserApplications,
+                selectedApplication,
+                setSelectedApplication,
             }}
         >
             {children}

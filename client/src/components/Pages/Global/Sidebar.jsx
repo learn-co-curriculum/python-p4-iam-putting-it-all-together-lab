@@ -8,7 +8,7 @@ function Sidebar() {
             <h2>Menu</h2>
                 <label>Select View</label>
             <select>
-                <option selected>My Listings (set f(ct))</option>
+                <option>My Listings (set f(ct))</option>
                 <option>Applications (set f(ct))</option>
                 <option>Tenants </option>
                 <option>Leases</option>

@@ -52,10 +52,11 @@ function NavBar() {
           Login
         </button>
         </a>
-
+        <Link to="/landing">
         <button variant="outline" onClick={handleLogoutClick}>
           Logout
         </button>
+        </Link>
       </nav>
 
       </div>

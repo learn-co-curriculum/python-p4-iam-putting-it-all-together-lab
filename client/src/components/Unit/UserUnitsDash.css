@@ -1,4 +1,4 @@
-.d-scroll-div {
+/* .d-scroll-div {
     display: flex;
     flex-wrap: none;
     flex-direction: column;
@@ -7,7 +7,7 @@
     max-height: 25vh;
     overflow-x: none;
     overflow-y: scroll;
-}
+} */
 
 .d-unit-card-div {
     display: flex;
@@ -19,7 +19,7 @@
     margin-left: 4vw;
     min-width: 60vw;
     max-width: 70vw;
-    max-height: 10vh;
+    max-height: 15vh;
     min-height: 10vh;
     margin-bottom: 2%;
     background-color: whitesmoke;
@@ -28,8 +28,8 @@
     position: relative;
     transition: all 0.2s ease-out;
     box-shadow: 0.5px 1.3px 18.4px rgba(0, 0, 0, 0.016),
-        1.6px 4.5px 61.6px rgba(0, 0, 0, 0.024),
-        7px 20px 276px rgba(0, 0, 0, 0.04);
+        1.6px 4.5px 61.6px rgba(0, 0, 0, 0.014),
+        /* 7px 20px 276px rgba(0, 0, 0, 0.04); */
 }
 
 .d-unit-card-div:hover {

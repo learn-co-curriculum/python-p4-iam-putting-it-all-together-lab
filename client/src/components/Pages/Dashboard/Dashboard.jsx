@@ -4,6 +4,7 @@ import "./Dashboard.css"
 import UnitCards from "../../Unit/UnitMapCards.jsx"
 import UserContext from "../../context.js"
 import UserUnitsDash from "../../Unit/UserUnitsDash.jsx";
+import UserApplicationDash from "../../Lease/UserApplicationDash.jsx";
 
 function Dashboard() {
     return (
@@ -11,6 +12,7 @@ function Dashboard() {
         <div className="dashboard-container">
             <Sidebar />
             <UserUnitsDash />
+            <UserApplicationDash/>
         </div>
         </div>
     );
