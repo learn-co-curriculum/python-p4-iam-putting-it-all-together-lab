@@ -106,6 +106,8 @@ class Unit (db.Model, SerializerMixin):
     lessor_id = db.Column(db.Integer(), db.ForeignKey('lessors.id'))
 
     name = db.Column(db.String, nullable=True)
+    image_url = db.Column(db.String, nullable=True)
+    type = db.Column(db.String, nullable=True)
     unit_num = db.Column(db.String, nullable=True)
     lot = db.Column(db.String, nullable=True)
     street = db.Column(db.String, nullable=True)
@@ -113,6 +115,7 @@ class Unit (db.Model, SerializerMixin):
     state = db.Column(db.String, nullable=True)
     zip = db.Column(db.String, nullable=True)
     beds = db.Column(db.Integer, nullable=True)
+    baths = db.Column(db.Integer, nullable=True)
     sqft = db.Column(db.Integer, nullable=True)
     price = db.Column(db.Integer, nullable=True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
@@ -128,6 +131,8 @@ class Unit (db.Model, SerializerMixin):
         data = {
             'id': self.id,
             'lessor_id': self.lessor_id,
+            'image_url': self.image_url,
+            'type': self.type,
             'lessor': self.lessor, # 'lessor': {'id': 1, 'name': 'John Doe', ...}
             'name': self.name,
             'unit_num': self.unit_num,
@@ -137,6 +142,7 @@ class Unit (db.Model, SerializerMixin):
             'state': self.state,
             'zip': self.zip,
             'beds': self.beds,
+            'baths': self.baths,
             'sqft': self.sqft,
             'price': self.price,
             'created_at': self.created_at.isoformat(),
@@ -155,6 +161,19 @@ class UnitApplication (db.Model, SerializerMixin):
     status = db.Column(db.String, nullable=True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+
+    def serialize(self):
+        data = {
+            'id': self.id,
+            'lessee_id': self.lessee_id,
+            'unit_id': self.unit_id,
+            'status': self.status,
+            'created_at': self.created_at.isoformat(),
+        }
+        if self.updated_at:
+            data['updated_at'] = self.updated_at.isoformat()
+        return data
+
 
     def __repr__(self):
         return f'<UnitApplication {self.id}: {self.name}>'

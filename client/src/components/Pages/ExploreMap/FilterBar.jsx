@@ -16,7 +16,7 @@ function FilterBar(props, ref) {
 
 
             <select className="dropdown-select">
-                <option value="" disabled selected >Price</option>
+                <option value="" disabled defaultValue="Price" >Price</option>
                 <option value="1000">up to $1000 </option>
                 <option value="1500">up to $1500 </option>
                 <option value="2000">up to $2000 </option>
@@ -33,7 +33,7 @@ function FilterBar(props, ref) {
             </select>
 
             <select className="dropdown-select">
-                <option value=""disabled selected>Beds</option>
+                <option value=""disabled defaultValue="Beds">Beds</option>
                 <option value="1">1 Bed</option>
                 <option value="2">2 Beds</option>
                 <option value="3">3 Beds</option>
@@ -41,7 +41,7 @@ function FilterBar(props, ref) {
             </select>
 
             <select className="dropdown-select">
-                <option value="" disabled selected >Baths</option>
+                <option value="" disabled defaultValue="Baths" >Baths</option>
                 <option value="1">1 Bath </option>
                 <option value="2">2 Baths </option>
                 <option value="3">3 Baths </option>

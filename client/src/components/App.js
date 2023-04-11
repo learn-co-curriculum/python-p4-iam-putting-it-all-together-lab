@@ -6,6 +6,7 @@ import Landing from "./Pages/Landing/Landing.jsx";
 import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
 import NewLeaseForm from "./Lease/NewLeaseForm";
 import NewUnitForm from "./Unit/NewUnitForm";
+import EditUnitForm from "./Unit/EditUnitForm";
 import Home from "./Pages/Home/Home.jsx";
 import ExploreMap from "./Pages/ExploreMap/ExploreMap.jsx";
 import UnitApplication from "./Lease/UnitApplication.jsx";
@@ -41,6 +42,10 @@ function App() {
           
           <Route path="/newunit">
               <NewUnitForm />
+          </Route>
+
+          <Route path="/editunit">
+              <EditUnitForm />
           </Route>
 
           <Route path="/newLease">

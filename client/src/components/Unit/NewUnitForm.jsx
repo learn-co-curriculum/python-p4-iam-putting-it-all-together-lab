@@ -1,17 +1,18 @@
-import React, { useState, useContext} from "react";
-import {UserContext} from "../context.js";
-import "./NewUnitForm.css"
+import React, { useState, useContext } from "react";
+import { UserContext } from "../context.js";
+import "./NewUnitForm.css";
+import { Link } from "react-router-dom";
 
 function NewUnitForm() {
+    const { user } = useContext(UserContext);
 
-    
-    const {user} = useContext(UserContext)
-
-    console.log(`user: ${UserContext}`)
+    console.log(`user: ${UserContext}`);
 
     const [formData, setFormData] = useState({
-        lessor_id: 0,
+        lessor_id: user.id,
         name: "",
+        image_url: "",
+        type: "",
         unit_num: "",
         lot: "",
         street: "",
@@ -19,10 +20,10 @@ function NewUnitForm() {
         state: "",
         zip: "",
         beds: "",
+        baths: "",
         sqft: "",
         price: "",
     });
-
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -44,6 +45,8 @@ function NewUnitForm() {
                 setFormData({
                     lessor_id: parseInt(user.id),
                     name: "",
+                    image_url: "",
+                    type: "",
                     unit_num: "",
                     lot: "",
                     street: "",
@@ -51,6 +54,7 @@ function NewUnitForm() {
                     state: "",
                     zip: "",
                     beds: "",
+                    baths: "",
                     sqft: "",
                     price: "",
                 });
@@ -60,99 +64,33 @@ function NewUnitForm() {
             });
     };
 
+    const renderInput = (inputName, inputType = "text") => {
+        return (
+            <label>
+                {inputName}:
+                <input
+                    type={inputType}
+                    name={inputName}
+                    value={formData[inputName]}
+                    onChange={handleInputChange}
+                />
+            </label>
+        );
+    };
+
     return (
         <form onSubmit={handleSubmit}>
-            <label>
-                Name:
-                <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <label>
-                Unit Number:
-                <input
-                    type="text"
-                    name="unit_num"
-                    value={formData.unit_num}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <label>
-                Lot:
-                <input
-                    type="text"
-                    name="lot"
-                    value={formData.lot}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <label>
-                Street:
-                <input
-                    type="text"
-                    name="street"
-                    value={formData.street}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <label>
-                City:
-                <input
-                    type="text"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <label>
-                State:
-                <input
-                    type="text"
-                    name="state"
-                    value={formData.state}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <label>
-                Zip:
-                <input
-                    type="text"
-                    name="zip"
-                    value={formData.zip}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <label>
-                Beds:
-                <input
-                    type="number"
-                    name="beds"
-                    value={formData.beds}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <label>
-                Sqft:
-                <input
-                    type="number"
-                    name="sqft"
-                    value={formData.sqft}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <label>
-                Price:
-                <input
-                    type="number"
-                    name="price"
-                    value={formData.price}
-                    onChange={handleInputChange}
-                />
-            </label>
-
+            {renderInput("name")}
+            {renderInput("unit_num")}
+            {renderInput("lot")}
+            {renderInput("street")}
+            {renderInput("city")}
+            {renderInput("state")}
+            {renderInput("zip")}
+            {renderInput("beds", "number")}
+            {renderInput("sqft", "number")}
+            {renderInput("price", "number")}
+<Link to="/dashboard">Cancel</Link>
             <button type="submit">Submit</button>
         </form>
     );

@@ -15,11 +15,15 @@ function UnitApplicationForm() {
         appFormUnitPrefill,
         setAppFormUnitPrefill,
         currentAppLessor,
+        handleApplicationSubmit,
     } = useContext(UserContext);
+
+console.log(currentAppUnit)
 
     return (
         <div className="unit-application-form">
             <h2>Application Form</h2>
+            <button onClick={handleApplicationSubmit}>Submit Application</button>
             {user ? (
                 <div className="application-renter-div">
                     <h4>Renter's Info</h4>
@@ -38,6 +42,7 @@ function UnitApplicationForm() {
                 </div>
             ) : <div>Uh Oh.. Something went wrong. Please try logging out and back in again.</div>
         }
+
         {currentAppUnit ? (
                 <div className="application-unit-div">
                 <h4>Unit Info</h4>
@@ -49,7 +54,7 @@ function UnitApplicationForm() {
                 <li>Zip: <span>{currentAppUnit.zip}</span></li>
                 <li>Unit Number: <span>{currentAppUnit.unit_num}</span></li>
                 <br />
-<li>--Details</li>
+                <li>--Details</li>
                 <li>Unit Type: <span>{currentAppUnit.unit_type}</span></li>
                 <li>Unit Size: <span>{currentAppUnit.sqft}</span></li>
                 <li>Unit Beds: <span>{currentAppUnit.beds}</span></li>
@@ -65,6 +70,7 @@ function UnitApplicationForm() {
                 </div>    
                 ) : <h4>Please Select a Unit for this Application</h4>
         }
+        <button onClick={handleApplicationSubmit}>Submit Application</button>
         </div>
     );
 }
