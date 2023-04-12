@@ -1,16 +1,27 @@
-
-.dashboard-container {
-    padding-top: 3.5vh;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-}
-
 .dashboard-page {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     height: 100vh;
     width: 100vw;
+}
+
+.dashboard-container {
+    flex-direction: column;
+    padding-top: 3.5vh;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    background-color:whitesmoke;
+}
+
+
+.dash-tag {
+    width: 80vw;
+    border: solid 1px #ccc;
+    height: 5vh;
+}
+
+.dash-tag:hover {
+    background-color: rgb(4, 214, 214);
 }

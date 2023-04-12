@@ -1,13 +1,13 @@
-/* .d-scroll-div {
+.d-scroll-div {
     display: flex;
     flex-wrap: none;
     flex-direction: column;
     justify-content: space-between;
     width: 70vw;
-    max-height: 25vh;
+    max-height: 70vh;
     overflow-x: none;
     overflow-y: scroll;
-} */
+}
 
 .d-unit-card-div {
     display: flex;
@@ -21,7 +21,7 @@
     max-width: 70vw;
     max-height: 15vh;
     min-height: 10vh;
-    margin-bottom: 2%;
+    margin-bottom: .25vh;
     background-color: whitesmoke;
     border-radius: 1rem;
     overflow: hidden;

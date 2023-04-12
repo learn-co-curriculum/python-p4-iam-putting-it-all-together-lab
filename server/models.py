@@ -122,18 +122,22 @@ class Unit (db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     #relationships
-    lessor = db.relationship('Lessor', backref='units')
+    # lessor = db.relationship('Lessor', backref='units', lazy='joined')
 
     def __repr__(self):
         return f'<Unit {self.id}: {self.name}>'
     
     def serialize(self):
+        # if isinstance(self.lessor, Lessor):
+        #     lessor = self.lessor.serialize()
+        # else:
+            # lessor = {'id' : self.lessor_id}
         data = {
             'id': self.id,
             'lessor_id': self.lessor_id,
             'image_url': self.image_url,
             'type': self.type,
-            'lessor': self.lessor, # 'lessor': {'id': 1, 'name': 'John Doe', ...}
+            # 'lessor': lessor,
             'name': self.name,
             'unit_num': self.unit_num,
             'lot': self.lot,
@@ -146,7 +150,7 @@ class Unit (db.Model, SerializerMixin):
             'sqft': self.sqft,
             'price': self.price,
             'created_at': self.created_at.isoformat(),
-    }
+        }
         if self.updated_at is not None:
             data['updated_at'] = self.updated_at.isoformat()
         return data
@@ -162,11 +166,19 @@ class UnitApplication (db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
+    unit = db.relationship('Unit', backref='unit_applications')
+
     def serialize(self):
+        if self.unit is not None:
+            unit_data = self.unit.serialize()
+        else:
+            unit_data = {'error': 'Unit not found'}
+
         data = {
             'id': self.id,
             'lessee_id': self.lessee_id,
             'unit_id': self.unit_id,
+            'unit': unit_data,
             'status': self.status,
             'created_at': self.created_at.isoformat(),
         }

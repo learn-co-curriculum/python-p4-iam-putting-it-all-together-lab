@@ -10,8 +10,8 @@ import EditUnitForm from "./Unit/EditUnitForm";
 import Home from "./Pages/Home/Home.jsx";
 import ExploreMap from "./Pages/ExploreMap/ExploreMap.jsx";
 import UnitApplication from "./Lease/UnitApplication.jsx";
-
-import {UserProvider} from "./context.js"
+import "./index.css";
+import {UserProvider} from "./context.js"  
 
 
 
@@ -24,7 +24,7 @@ function App() {
     
   <UserProvider >
     <div className="app">
-      <NavBar   />
+      <NavBar />
       <main>
         <Switch>
 

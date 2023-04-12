@@ -1,10 +1,15 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../context.js";
-// import '../../styles/tailwind.css'
+import '../../styles/tailwind.css'
 import "./UserUnitsDash.css";
+// import 'semantic-ui-css/semantic.min.css'
+// import { Accordion, Icon } from 'semantic-ui-react'
+import { Card, Icon, Image } from 'semantic-ui-react'
 
 function UserUnitsDash() {
+
+
     const {
         user,
         allUnits,
@@ -60,6 +65,7 @@ function UserUnitsDash() {
         } = unit;
 
         return (
+
             <div
                 className="d-unit-card-div"
                 key={id}

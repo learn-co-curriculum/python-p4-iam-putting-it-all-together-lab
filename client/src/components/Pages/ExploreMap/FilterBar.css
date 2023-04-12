@@ -1,13 +1,14 @@
 
 .filter-bar {
     margin:0;
-    margin-top: 5vh;
+    /* margin-top: 5vh; */
     width: 100vw;
     height: 6vh;
     background-color: teal;
     justify-content: space-between;
     padding-top: .5vh;
     padding-bottom: .5vh;
+    z-index: -2;
 }
 
 

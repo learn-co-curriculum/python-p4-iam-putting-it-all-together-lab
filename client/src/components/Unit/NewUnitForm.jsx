@@ -10,6 +10,7 @@ function NewUnitForm() {
 
     const [formData, setFormData] = useState({
         lessor_id: user.id,
+        // lessor: user,
         name: "",
         image_url: "",
         type: "",
@@ -44,6 +45,7 @@ function NewUnitForm() {
                 console.log("Success:", data);
                 setFormData({
                     lessor_id: parseInt(user.id),
+                    // lessor: user,
                     name: "",
                     image_url: "",
                     type: "",
@@ -79,20 +81,31 @@ function NewUnitForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            {renderInput("name")}
-            {renderInput("unit_num")}
-            {renderInput("lot")}
-            {renderInput("street")}
-            {renderInput("city")}
-            {renderInput("state")}
-            {renderInput("zip")}
-            {renderInput("beds", "number")}
-            {renderInput("sqft", "number")}
-            {renderInput("price", "number")}
-<Link to="/dashboard">Cancel</Link>
-            <button type="submit">Submit</button>
-        </form>
+        <>
+            <form onSubmit={handleSubmit}>
+                {renderInput("name")}
+                {renderInput("image_url")}
+                {renderInput("type")}
+                {renderInput("unit_num")}
+                {renderInput("lot")}
+                {renderInput("street")}
+                {renderInput("city")}
+                {renderInput("state")}
+                {renderInput("zip")}
+                {renderInput("beds", "number")}
+                {renderInput("baths", "number")}
+                {renderInput("sqft", "number")}
+                {renderInput("price", "number")}
+                
+                <Link to="/dashboard">
+                    <button type="button">Cancel</button>
+                </Link>
+
+                <Link to="/dashboard">
+                    <button type="submit">Submit</button>
+                </Link>
+            </form>
+        </>
     );
 }
 

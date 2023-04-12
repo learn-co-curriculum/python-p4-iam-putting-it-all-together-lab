@@ -15,9 +15,9 @@ function UserApplicationDash() {
     if (userApplications) {
         return userApplications.map((app) => (
             <div className="user-application-card" key={app.id}>
-                <h1>test</h1>
                 <button onClick={() => setSelectedApplication(app)}>select app</button>
-                <h1>{app.status}</h1>
+                <h4>{app.status}</h4>
+                <h4>{app.unit.name}</h4>
             </div>
         ));
     }

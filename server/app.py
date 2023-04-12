@@ -3,6 +3,7 @@ from datetime import datetime
 from flask import request, session, jsonify
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import joinedload
 
 from config import app, db, api
 from models import User, Unit, Lessee, Lessor, Lease, UnitApplication
@@ -151,10 +152,18 @@ def create_unit():
     data = request.get_json()
 
     lessor_id = data.pop('lessor_id')
-    unit = Unit(**data, lessor_id=lessor_id)
+    # lessor = Lessor.query.get(lessor_id)
+
+    unit = Unit(**data)
+    # unit.lessor = lessor
 
     db.session.add(unit)
     db.session.commit()
+    return jsonify(unit.serialize()), 201
+
+    ### to ensure the lessor relationship is properly loaded before serializing
+
+    # unit = Unit.query.options(joinedload(Unit.lessor)).get(unit.id)
     return jsonify(unit.serialize()), 201
 
 # Get all units
