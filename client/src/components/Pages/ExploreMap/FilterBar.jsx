@@ -19,7 +19,7 @@ function FilterBar(props, ref) {
                 <option value="" disabled defaultValue="Price" >Price</option>
                 <option value="1000">up to $1000 </option>
                 <option value="1500">up to $1500 </option>
-                <option value="2000">up to $2000 </option>
+                <option value="2000">up to $2000 </option> 
                 <option value="2500">up to $2500 </option>
                 <option value="3000">up to $3000 </option>
                 <option value="3500">up to $3500 </option>

@@ -8,17 +8,20 @@ function UnitFeaturedCards() {
 
 
 
-    const featuredUnitCards = allUnits.slice(0, 4).map((unit) => {
+    const featuredUnitCards = allUnits.slice(-4).map((unit) => {
         const {
             id,
             name,
             unit_num,
+            image_url,
+            type,
             lot,
             street,
             city,
             state,
             zip,
             beds,
+            baths,
             sqft,
         } = unit;
 
@@ -28,7 +31,7 @@ function UnitFeaturedCards() {
                     {/* <img src={unit.img_url} alt="unit" /> */}
                     <img
                         className="w-6 f-unit-card-image"
-                        src="https://tinyurl.com/TestImg-brownstone"
+                        src={image_url}
                     />
                 </div>
 
@@ -46,6 +49,8 @@ function UnitFeaturedCards() {
 
                     <div className="f-bed-bath-tag">
                         <p>
+                            <span className="b">Beds:</span>{" "}
+                            <span>{beds} </span>
                             <span className="b">Beds:</span>{" "}
                             <span>{beds} </span>
                         </p>

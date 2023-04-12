@@ -30,13 +30,13 @@
     display: block;
     object-fit: cover;
     width: 100%;
-    height: 15vh;
+    height: 25vh;
 }
 
 .f-unit-card-info {
     font-size: 0.7rem;
     padding: 0.5rem;
-    max-width: 15vw;
+    max-width: 17vw;
     position: relative;
     display: flex;
     flex-direction: column;

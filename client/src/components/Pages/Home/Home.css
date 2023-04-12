@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    /* height: 100vh; */
     width: 100vw;
     background-color:whitesmoke;
     display: flex;
@@ -15,51 +15,62 @@
     width: 100vw;
     /* height: 95vh; */
     margin:0;
+    
 }
 
 .search-wrapper {
     position:relative;
-    margin-top: 30vh;
 }
 
+.featured-container {
+    /* height:40vh; */
+}
 
 .feature-tag {
-    font-size: 2rem;
-    padding-top: 5vh;
-    padding-bottom: 5vh;
-    height:10vh;
+    font-size: 3rem;
+    padding-top: 2vh;
+    padding-bottom: 10vh;
+    height: 6vh;
     text-align: center;
     vertical-align: middle;
 }
 
 .home-search-div {
-    width: 60vw;
+    width: 70vw;
     /* min-height: 15vh; */
     max-width: 100vw;
-    padding: .3%;
+    /* padding: .3%; */
     position: absolute;
-    top: 60%;
+    top: 50%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
     font-size: 1.3rem;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
 }
 
-.home-search, home-search-button {
+
+
+
+.home-search {
     width: 50vw;
     min-height: 5vh;
-    max-height: 10vh;
-    display: inline-block;
     opacity: .5;
+    bottom: 0;    
+    position: relative;
+    align-self: center;
 }
 
 .home-search-button {
-    display: inline-block;
-    width: 10dw;
-    min-height: 6vh;
+    width: 10vw;
+    min-height: 5vh;
     margin-left: 1vw;
     background-color: rgba(200, 151, 18, 0.928);
     opacity: .9;
+    position: relative;
+    bottom: 1vh ;
 }
 
 
@@ -74,10 +85,9 @@
     color: rgba(245, 245, 245, 0.828);
     font-size: 2.5rem;
     width: 90vw;
-    max-width: 90vw;
     padding: 10px;
     position: absolute;
-    top:40%;
+    top:50%;
     left: 50%;
     transform: translateX(-50%);
     opacity: .9;
@@ -90,11 +100,11 @@
 
 
 .search-sliding-background {
-    top: 10vh;
-    display: flex;
-    height: 95vh;
+    /* top: 10vh; */
+    display: relative;
+    height: 90vh;
     width: 100vw; 
-    margin:0;
+
 
     background: url("https://wallpapercave.com/dwp2x/wp7281227.jpg");
     background-color: rgba(200, 151, 18, 0.928);
@@ -114,4 +124,28 @@
     to {
         background-position: center 100%;
     }
+}
+
+.about-doori {
+    position: relative;
+    top: 10vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 80vh;
+    background-color: rgba(200, 151, 18, 0.928);
+    background-color:rgba(0, 0, 0, 0.751);
+    background-blend-mode: multiply;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: whitesmoke;
+    font-size: 1.5rem;
+    padding: 10px;
+    opacity: .9;
+    padding-left: 10vw;
+    padding-right: 10vw;
 }
