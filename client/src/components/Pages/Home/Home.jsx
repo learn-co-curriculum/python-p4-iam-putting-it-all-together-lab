@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { UserContext } from "../../context.js";
 import UnitFeaturedCards from "../../Unit/UnitFeaturedCards.jsx";
@@ -6,7 +6,6 @@ import "./Home.css";
 
 function Home() {
     const { updateSearch } = useContext(UserContext);
-
     const history = useHistory();
 
     const handleSubmit = (e) => {
@@ -15,10 +14,26 @@ function Home() {
         history.push("/explore");
     };
 
-    ////figure out why Explorer map isnt rendering. get it to render first w/o search
-    ///create new state for filteredunits? use that instead of allUnits?
+    const avatarRef = useRef(null);
+
+    useEffect(() => {
+        const options = {
+            rootMargin: "0px",
+            threshold: 0.5,
+        };
+        const avatar = avatarRef.current;
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                avatar.classList.add("animate");
+            } else {
+                avatar.classList.remove("animate");
+            }
+        }, options);
+        observer.observe(avatar);
+    }, []);
 
     return (
+        <div>
         <div className="home-container">
             <div className="search-wrapper">
                 <div className="search-sliding-background">
@@ -30,9 +45,7 @@ function Home() {
                         <input
                             onChange={updateSearch}
                             className="home-search"
-                        >
-
-                        </input>
+                        ></input>
                         <button
                             type="submit"
                             href="/explore"
@@ -43,7 +56,7 @@ function Home() {
                     </form>
                 </div>
             </div>
-            <div >
+            <div>
                 <div className="featured-container">
                     <div className="feature-tag">
                         Find a new neighbor in New York
@@ -62,14 +75,14 @@ function Home() {
                     </p>
                     <br />
                     <p>
-                    As a small business owner, we understand the importance of
-                    creating strong relationships with both property owners and
-                    tenants. We pride ourselves on providing a seamless and
-                    stress-free experience for our clients by managing all
-                    aspects of property management from rent collection to
-                    maintenance requests.
+                        As a small business owner, we understand the importance
+                        of creating strong relationships with both property
+                        owners and tenants. We pride ourselves on providing a
+                        seamless and stress-free experience for our clients by
+                        managing all aspects of property management from rent
+                        collection to maintenance requests.
                     </p>
-                    <br/>
+                    <br />
                     <p>
                         Our team consists of experienced professionals who are
                         passionate about delivering exceptional service to our
@@ -81,6 +94,15 @@ function Home() {
                     </p>
                     <br />
                 </div>
+            </div>
+        </div>
+            <div className="av-container">
+                <img
+                    className="avatar"
+                    src="https://i.ibb.co/pQRV3K2/keino.png"
+                    ref={avatarRef}
+                />
+                        <p>Keino</p>
             </div>
         </div>
     );

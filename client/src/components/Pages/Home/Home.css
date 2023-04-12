@@ -5,7 +5,7 @@
     justify-content: center;
     /* height: 100vh; */
     width: 100vw;
-    background-color:whitesmoke;
+    background-color: whitesmoke;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,12 +14,11 @@
     position: relative;
     width: 100vw;
     /* height: 95vh; */
-    margin:0;
-    
+    margin: 0;
 }
 
 .search-wrapper {
-    position:relative;
+    position: relative;
 }
 
 .featured-container {
@@ -51,14 +50,11 @@
     flex-direction: row;
 }
 
-
-
-
 .home-search {
     width: 50vw;
     min-height: 5vh;
-    opacity: .5;
-    bottom: 0;    
+    opacity: 0.5;
+    bottom: 0;
     position: relative;
     align-self: center;
 }
@@ -68,18 +64,17 @@
     min-height: 5vh;
     margin-left: 1vw;
     background-color: rgba(200, 151, 18, 0.928);
-    opacity: .9;
+    opacity: 0.9;
     position: relative;
-    bottom: 1vh ;
+    bottom: 1vh;
 }
-
 
 .home-search-button:hover {
     color: whitesmoke;
     background-color: teal;
 }
 .home-search:hover {
-    opacity: .9;
+    opacity: 0.9;
 }
 .tagline {
     color: rgba(245, 245, 245, 0.828);
@@ -87,10 +82,10 @@
     width: 90vw;
     padding: 10px;
     position: absolute;
-    top:50%;
+    top: 50%;
     left: 50%;
     transform: translateX(-50%);
-    opacity: .9;
+    opacity: 0.9;
     z-index: 2;
 }
 
@@ -98,24 +93,21 @@
     color: rgb(253, 209, 12);
 }
 
-
 .search-sliding-background {
     /* top: 10vh; */
     display: relative;
     height: 90vh;
-    width: 100vw; 
-
+    width: 100vw;
 
     background: url("https://wallpapercave.com/dwp2x/wp7281227.jpg");
     background-color: rgba(200, 151, 18, 0.928);
-    background-color:rgba(0, 0, 0, 0.751);
-    
+    background-color: rgba(0, 0, 0, 0.751);
+
     background-blend-mode: multiply;
     background-size: 110%;
 
     animation: shine 400s linear infinite;
 }
-
 
 @keyframes shine {
     from {
@@ -128,14 +120,11 @@
 
 .about-doori {
     position: relative;
-    top: 10vh;
+    margin-top: 10vh;
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    height: 80vh;
-    background-color: rgba(200, 151, 18, 0.928);
-    background-color:rgba(0, 0, 0, 0.751);
-    background-blend-mode: multiply;
+    height: 60vh;
     z-index: 2;
     display: flex;
     flex-direction: column;
@@ -145,7 +134,52 @@
     color: whitesmoke;
     font-size: 1.5rem;
     padding: 10px;
-    opacity: .9;
-    padding-left: 10vw;
-    padding-right: 10vw;
+    opacity: 0.9;
+    padding-left: 15vw;
+    padding-right: 15vw;
+    background-color: darkslategray;
+    position: relative;
 }
+
+
+/* ///avatar */
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #ccc;
+}
+
+.avatar:hover {
+    border-radius: 15px;
+    transition: border-radius 0.5s ease;
+}
+
+.avatar {
+    position: relative;
+    bottom: -100px;
+}
+
+.avatar.animate {
+    bottom: 0px;
+    transition: bottom 0.5s ease;
+}
+
+/* footer */
+.av-container {
+    justify-content: space-between;
+    padding: 1vh;
+    min-height: 20vh;
+    height: 20vh;
+    background-color:black;
+    position: relative;
+    }
+
+
+.footer {
+min-height: 20vh;
+height: 20vh;
+background-color:black;
+}
+
+
