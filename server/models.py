@@ -1,6 +1,7 @@
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy_serializer import SerializerMixin
 from datetime import datetime
+from sqlalchemy.ext.associationproxy import association_proxy
 
 from config import db, bcrypt
 
@@ -95,6 +96,12 @@ class Lessee (db.Model, SerializerMixin):
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+    
+    #relationships
+    unit_applications = db.relationship('UnitApplication', backref='lessee', lazy='joined')
+    units = association_proxy('unit_applications', 'unit')
+    serialize_rules = ("-unit_applications.lessee",)
+    
 
     def __repr__(self):
         return f'<Lessee {self.id}: {self.name}>'
@@ -123,6 +130,9 @@ class Unit (db.Model, SerializerMixin):
 
     #relationships
     # lessor = db.relationship('Lessor', backref='units', lazy='joined')
+    unit_applications = db.relationship('UnitApplication', backref='unit', lazy='joined')
+    lessees = association_proxy('unit_applications', 'lessee')
+    serialize_rules = ("-unit_applications.unit",)
 
     def __repr__(self):
         return f'<Unit {self.id}: {self.name}>'
@@ -166,7 +176,7 @@ class UnitApplication (db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    unit = db.relationship('Unit', backref='unit_applications')
+    # unit = db.relationship('Unit', backref='unit_applications')
 
     def serialize(self):
         if self.unit is not None:

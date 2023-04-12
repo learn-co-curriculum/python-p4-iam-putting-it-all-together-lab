@@ -190,7 +190,6 @@ useEffect(() => {
       })
   }, [user]);
   
-  console.log(allApplications)
   
   //// Current User's Applications
   useEffect(() => {
@@ -201,6 +200,13 @@ useEffect(() => {
       setUserApplications(uApps);
     }
   }, [user, allApplications]);
+
+  // userApplications.map((app) => {
+  //   const userAppList = []
+  //   const unit = allUnits.filter(unit => app.unit_id === unit.id)
+  //   setUserUnits((prevState) => [...prevState, unit])
+  // })
+
 
 
 

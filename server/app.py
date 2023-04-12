@@ -170,7 +170,7 @@ def create_unit():
 @app.route('/units', methods=['GET'])
 def get_units():
     units = Unit.query.all()
-    return jsonify([unit.serialize() for unit in units]), 200
+    return jsonify([unit.to_dict(rules=(("lessees",))) for unit in units]), 200
 
 
 # Get a specific unit
@@ -179,7 +179,7 @@ def get_unit(id):
     unit = Unit.query.get(id)
     if unit is None:
         return jsonify({'error': 'Unit not found'}), 404
-    return jsonify(unit.serialize()), 200
+    return jsonify(unit.to_dict(rules=(("lessees",)))), 200
 
 # Update a unit
 @app.route('/units/<int:id>', methods=['PUT'])
