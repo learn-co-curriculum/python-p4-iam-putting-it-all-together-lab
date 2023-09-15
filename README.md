@@ -68,6 +68,7 @@ $ npm start --prefix client
 
 Create a `User` model with the following attributes:
 
+- `id` that is an integer type and a primary key.
 - `username` that is a `String` type.
 - `_password_hash` that is a `String` type.
 - `image_url` that is a `String` type.
@@ -84,6 +85,7 @@ Your `User` model should also:
 Next, create a `Recipe` model with the following attributes:
 
 - a recipe **belongs to** a user.
+- `id` that is an integer type and a primary key.
 - `title` that is a `String` type.
 - `instructions` that is a `String` type.
 - `minutes_to_complete` that is an `Integer` type.
