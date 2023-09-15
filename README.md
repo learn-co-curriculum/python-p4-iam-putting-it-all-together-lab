@@ -9,9 +9,9 @@
 
 ## Key Vocab
 
-- **Identity and Access Management (IAM)**: a subfield of software engineering that
-  focuses on users, their attributes, their login information, and the resources
-  that they are allowed to access.
+- **Identity and Access Management (IAM)**: a subfield of software engineering
+  that focuses on users, their attributes, their login information, and the
+  resources that they are allowed to access.
 - **Authentication**: proving one's identity to an application in order to
   access protected information; logging in.
 - **Authorization**: allowing or disallowing access to resources based on a
@@ -43,9 +43,9 @@ Flask API backend and a React frontend. To get set up, run:
 $ pipenv install && pipenv shell
 $ npm install --prefix client
 $ cd server
-$ flask db upgrade
-$ seed.py
 ```
+
+You'll need to populate your models and create your own migrations.
 
 You can work on this lab by running the tests with `pytest`. It will also be
 helpful to see what's happening during the request/response cycle by running the
@@ -54,6 +54,9 @@ app in the browser. You can run the Flask server with:
 ```console
 $ python app.py
 ```
+
+Note that this will generate an error if you haven't created your models and run
+your migrations yet.
 
 And you can run React in another terminal from the project root directory with:
 
@@ -65,6 +68,7 @@ $ npm start --prefix client
 
 Create a `User` model with the following attributes:
 
+- `id` that is an integer type and a primary key.
 - `username` that is a `String` type.
 - `_password_hash` that is a `String` type.
 - `image_url` that is a `String` type.
@@ -81,6 +85,7 @@ Your `User` model should also:
 Next, create a `Recipe` model with the following attributes:
 
 - a recipe **belongs to** a user.
+- `id` that is an integer type and a primary key.
 - `title` that is a `String` type.
 - `instructions` that is a `String` type.
 - `minutes_to_complete` that is an `Integer` type.
@@ -90,13 +95,21 @@ Add validations for the `Recipe` model:
 - `title` must be present.
 - `instructions` must be present and at least 50 characters long.
 
-Run the migrations after creating your models.
+Run the migrations after creating your models. You'll need to run `flask db
+init` before running `flask db revision autogenerate` or `flask db upgrade`.
 
 Ensure that the tests for the models are passing before moving forward. To run
 the tests for _only_ the model files, run:
 
 ```console
 $ pytest testing/models_testing/
+```
+
+Once your tests are passing, you can seed your database from within the `server`
+directory by running:
+
+```console
+$ python seed.py
 ```
 
 ### Sign Up Feature
@@ -116,10 +129,11 @@ Handle sign up by implementing a `POST /signup` route. It should:
   - Return a JSON response with the error message, and an HTTP status code of
     422 (Unprocessable Entity).
 
-> **Note: Recall that we need to format our error messages in a way that makes it
-> easy to display the information in our frontend. For this lab, because we are
-> setting up multiple validations on our `User` and `Recipe` models, our error
-> responses need to be formatted in a way that accommodates multiple errors.**
+> **Note: Recall that we need to format our error messages in a way that makes
+> it easy to display the information in our frontend. For this lab, because we
+> are setting up multiple validations on our `User` and `Recipe` models, our
+> error responses need to be formatted in a way that accommodates multiple
+> errors.**
 
 ### Auto-Login Feature
 
@@ -146,8 +160,8 @@ $ pytest testing/app_testing/app_test.py::TestCheckSession
 
 You should also be able to test this in the React application by signing up via
 the sign up form to check the `POST /signup` route; and refreshing the page
-after logging in, and seeing that you are still logged in to test the
-`GET /check_session` route.
+after logging in, and seeing that you are still logged in to test the `GET
+/check_session` route.
 
 ### Login Feature
 
@@ -164,10 +178,10 @@ Handle login by implementing a `POST /login` route. It should:
   - Return a JSON response with an error message, and a status of 401
     (Unauthorized).
 
-Make sure this route works as intended by running
-`pytest testing/app_testing/app_test.py::TestLogin` before moving
-forward. You should also be able to test this in the React application by
-logging in via the login form.
+Make sure this route works as intended by running `pytest
+testing/app_testing/app_test.py::TestLogin` before moving forward. You should
+also be able to test this in the React application by logging in via the login
+form.
 
 ### Logout Feature
 
@@ -233,8 +247,8 @@ Handle recipe creation by implementing a `POST /recipes` route. It should:
   - Return a JSON response with the error messages, and an HTTP status code of
     422 (Unprocessable Entity).
 
-After finishing the `RecipeIndex` resource, you're done! Make sure to check
-your work. You should be able to run the full test suite now with `pytest`.
+After finishing the `RecipeIndex` resource, you're done! Make sure to check your
+work. You should be able to run the full test suite now with `pytest`.
 
 You should also be able to test this in the React application by creating a new
 recipe with the recipe form, and viewing a list of recipes.
@@ -243,8 +257,10 @@ recipe with the recipe form, and viewing a list of recipes.
 
 ## Resources
 
-- [API - Flask: `class flask.session`](https://flask.palletsprojects.com/en/2.2.x/api/#flask.session)
-- [User's Guide - Flask RESTful](https://flask-restful.readthedocs.io/en/latest/)
+- [API - Flask: `class
+  flask.session`](https://flask.palletsprojects.com/en/2.2.x/api/#flask.session)
+- [User's Guide - Flask
+  RESTful](https://flask-restful.readthedocs.io/en/latest/)
 - [Flask-Bcrypt][bcrypt]
 
 [bcrypt]: https://flask-bcrypt.readthedocs.io/en/1.0.1/
