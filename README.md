@@ -105,6 +105,13 @@ the tests for _only_ the model files, run:
 $ pytest testing/models_testing/
 ```
 
+Once your tests are passing, you can seed your database from within the `server`
+directory by running:
+
+```console
+$ python seed.py
+```
+
 ### Sign Up Feature
 
 After creating the models, the next step is building out a sign up feature.
