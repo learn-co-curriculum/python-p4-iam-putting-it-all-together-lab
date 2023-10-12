@@ -95,7 +95,7 @@ Add validations for the `Recipe` model:
 
 Run the migrations after creating your models. You'll need to run
 `flask db init` before running `flask db revision autogenerate` or
-`flask db upgrade`.
+`flask db migrate` and `flask db upgrade`.
 
 Ensure that the tests for the models are passing before moving forward. To run
 the tests for _only_ the model files, run:
