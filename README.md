@@ -76,8 +76,8 @@ Your `User` model should also:
 
 - incorporate `bcrypt` to create a secure password. Attempts to access the
   `password_hash` should be met with an `AttributeError`.
-- validate the user's username to ensure that it is **present** and **unique**
-  (no two users can have the same username).
+- constrain the user's username to be **present** and **unique** (no two users
+  can have the same username).
 - **have many** recipes.
 
 Next, create a `Recipe` model with the following attributes:
@@ -88,10 +88,12 @@ Next, create a `Recipe` model with the following attributes:
 - `instructions` that is a `String` type.
 - `minutes_to_complete` that is an `Integer` type.
 
-Add validations for the `Recipe` model:
+Add database constraints for the `Recipe` model:
 
-- `title` must be present.
-- `instructions` must be present and at least 50 characters long.
+Your `Recipe` model should also:
+
+- constrain the `title` to be present.
+- constrain the `instructions` to be present and at least 50 characters long.
 
 Run the migrations after creating your models. You'll need to run
 `flask db init` before running `flask db revision autogenerate` or
